@@ -1,0 +1,2496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>West London Security Ltd | Elite Protection & K9 Units</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+        
+        /* PRELOADER */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-content {
+            text-align: center;
+            color: white;
+        }
+        .loader-shield {
+            width: 80px;
+            height: 80px;
+            background: #f97316;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 20px;
+            animation: pulseShield 0.8s infinite alternate;
+        }
+        @keyframes pulseShield {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249,115,22,0.4);}
+            100% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(249,115,22,0);}
+        }
+        .loader-text {
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+        }
+        .loader-dots span {
+            display: inline-block;
+            animation: dotBlink 1.4s infinite;
+        }
+        .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dotBlink {
+            0%, 100% { opacity: 0.7; transform: translateY(0);}
+            50% { opacity: 2; transform: translateY(-4px);}
+        }
+        
+        .hero-bg {
+            background: linear-gradient(125deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.88)), url('https://picsum.photos/id/104/2000/1300') center/cover no-repeat;
+        }
+        
+        /* Services Dropdown Desktop */
+        .services-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 260px;
+            background: #1e293b;
+            backdrop-filter: blur(8px);
+            border-radius: 1.5rem;
+            padding: 0.75rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-12px);
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.35);
+            z-index: 60;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+        }
+        .group:hover .services-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-item {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #e2e8f0;
+            transition: all 0.2s ease;
+        }
+        .dropdown-item:hover {
+            background: #f97316;
+            color: white;
+            padding-left: 1.8rem;
+        }
+        .nav-link {
+            transition: all 0.25s ease;
+        }
+        .nav-link:hover { color: #f97316; }
+        
+        /* Mobile Submenu */
+        .mobile-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.33, 1, 0.68, 1);
+            background: rgba(255,255,255,0.03);
+            border-radius: 1.2rem;
+        }
+        .mobile-submenu.open-sub { max-height: 320px; }
+        .rotate-chevron { transition: transform 0.3s ease; }
+        .rotate-chevron.open { transform: rotate(180deg); }
+        
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .service-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .slide-menu {
+            transform: translateX(-100%);
+            transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .slide-menu.open { transform: translateX(0); }
+        
+        /* Fix overflow */
+        .max-w-7xl {
+            max-width: 80rem;
+        }
+        img, iframe, video {
+            max-width: 100%;
+        }
+        .scroll-margin {
+            scroll-margin-top: 110px;
+        }
+        /* custom input focus */
+        input:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.4);
+        }
+        @media (max-width: 768px) {
+            .hero-bg h1 {
+                font-size: 2.5rem;
+            }
+        }
+        /* Button loading animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+#submitBtn:disabled {
+    opacity: 0.8;
+    cursor: wait;
+    animation: pulse 1s infinite;
+}
+
+/* Smooth button transition */
+#submitBtn {
+    transition: all 0.3s ease;
+}
+
+/* Progress bar animation (optional) */
+.submitting-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #f97316, #ff9f4a, #f97316);
+    animation: progress 2s ease-in-out;
+    z-index: 10000;
+}
+
+@keyframes progress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-shield">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="loader-text">WEST LONDON SECURITY</div>
+            <div class="loader-dots mt-3 text-orange-400 text-xl">
+                <span>•</span><span>•</span><span>•</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER with Desktop Dropdown -->
+<header class="bg-slate-900 text-white sticky top-0 z-50 shadow-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+        <!-- Logo Section -->
+        <div class="flex items-center gap-2 sm:gap-3 cursor-pointer" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shadow-md overflow-hidden bg-orange-600">
+                <img style="width: 100%; height: 100%; object-fit: cover;" src="Gemini_Generated_Image_3lttz23lttz23ltt-removebg-preview (1).png" alt="West London Security Logo">
+            </div>
+            <div>
+                <span class="text-lg sm:text-2xl font-extrabold tracking-tight">West London</span>
+                <span class="block text-[9px] sm:text-[11px] text-orange-400 -mt-1 tracking-wider">SECURITY LTD</span>
+            </div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-5 lg:gap-7 text-sm font-semibold">
+            <a href="#home" class="nav-link">Home</a>
+            
+                <a href="services.html" class="nav-link flex items-center gap-1">Services</a>
+                
+                
+            
+            <a href="#about" class="nav-link">About Us</a>
+            <a href="#testimonials" class="nav-link">Testimonials</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <!-- Contact & Mobile Menu Button -->
+        <div class="flex items-center gap-2 sm:gap-4">
+            <a href="tel:02081234567" class="hidden sm:flex items-center gap-2 bg-slate-800 hover:bg-orange-700 px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-300">
+                <i class="fa-solid fa-phone-volume"></i> <span>020 8123 4567</span>
+            </a>
+            <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center text-2xl">
+                <i id="hamburger-icon" class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MOBILE MENU with Logo inside -->
+    <div id="mobile-menu" class="slide-menu fixed top-0 left-0 h-full w-80 bg-slate-900 shadow-2xl z-[100] pt-20 px-6 overflow-y-auto">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-3xl text-white hover:text-orange-400">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        
+        <!-- Mobile Menu Logo -->
+        <div class="flex items-center gap-3 mb-8 pb-6 border-b border-slate-700">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden bg-orange-600">
+                <img style="width: 100%; height: 100%; object-fit: cover;" src="Gemini_Generated_Image_3lttz23lttz23ltt-removebg-preview (1).png" alt="West London Security Logo">
+            </div>
+            <div>
+                <span class="text-xl font-extrabold tracking-tight text-white">West London</span>
+                <span class="block text-[10px] text-orange-400 -mt-1 tracking-wider">SECURITY LTD</span>
+            </div>
+        </div>
+        
+        <div class="flex flex-col gap-5 text-lg font-medium">
+            <a href="#s" onclick="closeMobileMenuSmooth()" class="nav-link py-2 hover:bg-slate-800 px-3 rounded-xl transition">Home</a>
+            <div class="flex flex-col">
+                <button onclick="toggleMobileServicesSubmenu()" class="flex justify-between items-center w-full text-left nav-link py-2 hover:bg-slate-800 px-3 rounded-xl transition">
+                    Services <i id="mobileServicesArrow" class="fa-solid fa-chevron-down rotate-chevron transition-all"></i>
+                </button>
+                <div id="mobileServicesSub" class="mobile-submenu mt-2 pl-6 flex flex-col gap-2">
+                    <a href="#static-guard" onclick="closeMobileMenuAndScroll('static-guard')" class="text-slate-300 hover:text-orange-400 py-2 transition flex items-center gap-2"><i class="fa-regular fa-building w-5"></i> Static Guards</a>
+                    <a href="#k9-unit" onclick="closeMobileMenuAndScroll('k9-unit')" class="text-slate-300 hover:text-orange-400 py-2 transition flex items-center gap-2"><i class="fa-solid fa-dog w-5"></i> K9 Units</a>
+                    <a href="#mobile-patrol" onclick="closeMobileMenuAndScroll('mobile-patrol')" class="text-slate-300 hover:text-orange-400 py-2 transition flex items-center gap-2"><i class="fa-solid fa-car w-5"></i> Mobile Patrols</a>
+                    <a href="#event-security" onclick="closeMobileMenuAndScroll('event-security')" class="text-slate-300 hover:text-orange-400 py-2 transition flex items-center gap-2"><i class="fa-solid fa-calendar-check w-5"></i> Event Security</a>
+                </div>
+            </div>
+            <a href="#about" onclick="closeMobileMenuSmooth()" class="nav-link py-2 hover:bg-slate-800 px-3 rounded-xl transition">About Us</a>
+            <a href="#testimonials" onclick="closeMobileMenuSmooth()" class="nav-link py-2 hover:bg-slate-800 px-3 rounded-xl transition">Testimonials</a>
+            <a href="#contact" onclick="closeMobileMenuSmooth()" class="nav-link py-2 hover:bg-slate-800 px-3 rounded-xl transition">Contact</a>
+        </div>
+        
+    </div>
+</header>
+
+    <!-- HERO -->
+    <section id="home" class="hero-bg min-h-screen flex items-center text-white">
+        <div class="max-w-7xl mx-auto px-6 pt-20 pb-24">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full text-sm mb-6 border border-white/20">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    SIA Licensed • K9 Trained • 24/7 Response
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">Elite Security <br>for West London</h1>
+                <p class="text-xl text-slate-200 mb-10">Manned guarding, canine units, and rapid response — protecting businesses, construction sites, and retail spaces across the capital.</p>
+                <div class="flex flex-wrap gap-4 items-center">
+    <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" 
+            class="relative overflow-hidden bg-orange-600 px-7 py-3 rounded-xl text-base font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl transition-all duration-300 group">
+        <span class="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-400 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out"></span>
+        <i class="fa-solid fa-shield relative z-10"></i>
+        <span class="relative z-10">Free Quote</span>
+    </button>
+    
+    <button onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})" 
+            class="relative overflow-hidden bg-transparent border-2 border-white px-6 py-3 rounded-xl text-base font-semibold transition-all duration-300 group">
+        <span class="absolute inset-0 bg-white translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out"></span>
+        <span class="relative z-10 group-hover:text-slate-900 transition-colors duration-300">Our Services</span>
+    </button>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <!-- Enhanced Professional Trust Bar -->
+<div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-8 shadow-xl border-b border-orange-500/30">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-7 gap-6 items-center">
+            
+            <!-- SIA Approved -->
+            <div class="trust-item group text-center transform transition-all duration-300 hover:scale-110">
+                <div class="relative">
+                    <div class="w-16 h-16 bg-orange-600/20 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:bg-orange-600 transition-all duration-300">
+                        <i class="fa-solid fa-id-card text-3xl text-orange-500 group-hover:text-white transition-all duration-300"></i>
+                    </div>
+                    <div class="absolute -top-2 -right-2 w-5 h-5 bg-green-500 rounded-full animate-pulse"></div>
+                </div>
+                <p class="text-sm font-bold mt-2">SIA Approved</p>
+                <p class="text-xs text-slate-400">Licensed & Regulated</p>
+            </div>
+            
+            <!-- Elite K9 Units -->
+            <div class="trust-item group text-center transform transition-all duration-300 hover:scale-110">
+                <div class="w-16 h-16 bg-orange-600/20 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-dog text-3xl text-orange-500 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <p class="text-sm font-bold mt-2">Elite K9 Units</p>
+                <p class="text-xs text-slate-400">Specialist Dogs</p>
+            </div>
+            
+            <!-- 24/7 Coverage -->
+            <div class="trust-item group text-center transform transition-all duration-300 hover:scale-110">
+                <div class="w-16 h-16 bg-orange-600/20 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-clock text-3xl text-orange-500 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <p class="text-sm font-bold mt-2">24/7 Coverage</p>
+                <p class="text-xs text-slate-400">365 Days a Year</p>
+            </div>
+            
+            <!-- 98% Retention -->
+            <div class="trust-item group text-center transform transition-all duration-300 hover:scale-110">
+                <div class="w-16 h-16 bg-orange-600/20 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-chart-line text-3xl text-orange-500 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <p class="text-sm font-bold mt-2">98% Retention</p>
+                <p class="text-xs text-slate-400">Client Satisfaction</p>
+            </div>
+            
+            <!-- ISO Certified -->
+            <div class="trust-item group text-center transform transition-all duration-300 hover:scale-110">
+                <div class="w-16 h-16 bg-orange-600/20 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-certificate text-3xl text-orange-500 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <p class="text-sm font-bold mt-2">ISO Certified</p>
+                <p class="text-xs text-slate-400">Quality Management</p>
+            </div>
+            
+            <!-- Company Details -->
+            <div class="col-span-2 md:col-span-2 bg-white/5 rounded-2xl p-4 backdrop-blur-sm border border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-orange-600 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-building text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-mono font-semibold text-white">Company No: 15415447</p>
+                        <p class="text-xs text-slate-400">Incorporated: 16 January 2024</p>
+                        <p class="text-xs text-orange-400 mt-1">📍 Hounslow, TW5 9SF</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Animated Progress Bar Below -->
+        <div class="mt-6 pt-4 border-t border-white/10">
+            <div class="flex justify-between text-xs text-slate-400 mb-2">
+                <span>✓ 500+ Projects Completed</span>
+                <span>✓ 50+ Active Contracts</span>
+                <span>✓ 100+ Trained Officers</span>
+                <span>✓ 24/7 Support</span>
+            </div>
+            <div class="w-full bg-slate-700 rounded-full h-1.5 overflow-hidden">
+                <div class="bg-gradient-to-r from-orange-500 to-orange-600 h-1.5 rounded-full animate-progress" style="width: 98%"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes progress {
+        0% { width: 0%; }
+        100% { width: 98%; }
+    }
+    
+    .animate-progress {
+        animation: progress 2s ease-out;
+    }
+    
+    .trust-item {
+        position: relative;
+    }
+    
+    .trust-item::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: #f97316;
+        transition: width 0.3s ease;
+    }
+    
+    .trust-item:hover::after {
+        width: 40px;
+    }
+</style>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 bg-white scroll-margin">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="zoom-in"><span class="text-orange-600 font-bold tracking-wider">TRUSTED PARTNER</span><h2 class="text-5xl font-bold mt-3 mb-7">Uncompromised Protection Across London</h2><p class="text-lg text-slate-600 mb-7">West London Security Ltd delivers advanced security solutions with SIA-licensed officers, cutting-edge tech, and specialist dog units. We tailor every contract to your risk profile.</p>
+                <div data-aos="zoom-in" class="grid grid-cols-2 gap-8"><div><h4 class="text-4xl font-black text-orange-600 counter-up" data-target="52">0+</h4><p  data-aos="zoom-in" class="text-slate-500">Expert Officers</p></div><div><h4 class="text-4xl font-black text-orange-600 counter-up" data-target="28">0+</h4><p class="text-slate-500">Active K9 Teams</p></div></div>
+                <button data-aos="zoom-in" onclick="showAuditModal()" class="mt-10 bg-slate-900 hover:bg-orange-600 text-white px-9 py-4 rounded-2xl font-semibold flex items-center gap-3 transition">Request Security Audit <i class="fa-solid fa-arrow-right"></i></button></div>
+                <div class="relative" data-aos="zoom-in" ><img src="https://www.resolutedogsecurity.co.uk/uploads/cms/services/6/0x4a9136-image-main.webp" alt="security team" class="rounded-3xl shadow-2xl w-full"><div class="absolute -bottom-7 -left-7 bg-white p-5 rounded-2xl shadow-2xl"><div class="flex items-center gap-4"><div class="text-4xl">⭐ 5.0</div><div><p class="font-bold">89+ reviews</p><p class="text-xs text-slate-500">Verified clients</p></div></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY WEST LONDON? (New image + paragraph section) -->
+    <section class="py-24 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-orange-600 font-semibold uppercase tracking-wide">Local Expertise</span>
+                <h2 data-aos="zoom-in" class="text-4xl md:text-5xl font-bold mt-2">Why West London Security?</h2>
+                <p data-aos="zoom-in" class="text-slate-500 max-w-2xl mx-auto mt-4">Rooted in the community, built for rapid response across Hounslow, Brentford, Hammersmith & beyond.</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1" data-aos="zoom-in">
+                    <img src="ChatGPT Image May 22, 2026, 08_23_08 AM.png" alt="West London skyline security" class="rounded-3xl shadow-2xl w-full object-cover h-96">
+                </div>
+                <div class="order-1 lg:order-2 space-y-6">
+                    <h3 class="text-3xl font-bold text-slate-800" data-aos="zoom-in">Deeply Connected to West London</h3>
+                    <p class="text-slate-600 text-lg leading-relaxed"  data-aos="zoom-in">We don't just operate in West London — we live and work here. Our command center is strategically located in Hounslow, allowing rapid deployment across TW postcodes. We understand local business districts, construction hubs, retail parks and event venues. Our officers are familiar with the unique security challenges of areas like Chiswick, Kew, Brentford, and Acton. When you choose West London Security Ltd, you're hiring a partner that knows every high-risk corridor, every quiet industrial estate, and delivers an intelligence-led approach rooted in hyperlocal knowledge.</p>
+                    <div class="flex flex-wrap gap-5 pt-4">
+                        <div class="flex items-center gap-2" data-aos="zoom-in"><i class="fa-solid fa-check-circle text-orange-600"></i> <span>Rapid 20-min average response</span></div>
+                        <div class="flex items-center gap-2" data-aos="zoom-in"><i class="fa-solid fa-check-circle text-orange-600"></i> <span>Met Police liaison protocols</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES CARDS (with anchor ids) -->
+    <section id="services" class="py-24 bg-white scroll-margin">
+        <div class="max-w-7xl mx-auto px-6"><div class="text-center mb-16"><span class="text-orange-600 font-semibold">CORE OFFERINGS</span><h2  data-aos="zoom-in" class="text-5xl font-bold mt-3">Our Premium Security Services</h2></div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div  data-aos="zoom-in" id="static-guard" class="service-card bg-slate-100 rounded-2xl overflow-hidden shadow-md scroll-margin"><div class="h-56 bg-cover bg-center" style="background-image:url('https://www.resolutedogsecurity.co.uk/uploads/cms/services/5/0x4a9370-image-main.webp')"></div><div class="p-6"><i class="fa-solid fa-user-shield text-4xl text-slate-800 mb-3"></i><h3 class="text-2xl font-bold">Static Guards</h3><p class="text-slate-600 mt-2 text-sm">24/7 access control, reception & high-visibility deterrence.</p></div></div>
+            <div  data-aos="zoom-in" id="k9-unit" class="service-card bg-slate-100 rounded-2xl overflow-hidden shadow-md scroll-margin"><div class="h-56 bg-cover bg-center" style="background-image:url('https://www.resolutedogsecurity.co.uk/uploads/cms/servicessection/40/0x4a9401-thumb.webp')"></div><div class="p-6"><i class="fa-solid fa-dog text-4xl text-amber-800 mb-3"></i><h3 class="text-2xl font-bold">K9 Security</h3><p class="text-slate-600 mt-2 text-sm">Explosive/drug detection, perimeter defence & patrol dogs.</p></div></div>
+            <div  data-aos="zoom-in" id="mobile-patrol" class="service-card bg-slate-100 rounded-2xl overflow-hidden shadow-md scroll-margin"><div class="h-56 bg-cover bg-center" style="background-image:url('https://www.resolutedogsecurity.co.uk/uploads/cms/gallery/1/0x4a8973-thumb.webp')"></div><div class="p-6"><i class="fa-solid fa-car-side text-4xl text-slate-800 mb-3"></i><h3 class="text-2xl font-bold">Mobile Patrols</h3><p class="text-slate-600 mt-2 text-sm">Random & scheduled visits, alarm response & keyholding.</p></div></div>
+            <div  data-aos="zoom-in" id="event-security" class="service-card bg-slate-100 rounded-2xl overflow-hidden shadow-md scroll-margin"><div class="h-56 bg-cover bg-center" style="background-image:url('WhatsApp\ Image\ 2026-05-22\ at\ 8.48.10\ AM.jpeg')"></div><div class="p-6"><i class="fa-solid fa-calendar-check text-4xl text-orange-700 mb-3"></i><h3 class="text-2xl font-bold">Event Security</h3><p class="text-slate-600 mt-2 text-sm">Crowd management, VIP close protection & screening.</p></div></div>
+        </div></div>
+    </section>
+  
+    <!-- Companies We Work With - Image Carousel -->
+<section id="clients" class="py-16 bg-white scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <span class="text-orange-600 font-semibold uppercase tracking-wide">Trusted Partners</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-2">Companies We Work With</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto mt-3">Proudly serving businesses across West London and beyond</p>
+        </div>
+
+        <!-- Carousel Container -->
+        <div class="relative overflow-hidden py-8">
+            <!-- Gradient Overlays for fade effect -->
+            <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+            
+            <!-- Carousel Track -->
+            <div class="carousel-track flex items-center gap-12 animate-scroll hover:pause-animation">
+                <!-- First Set of Logos -->
+                <div class="flex items-center gap-12">
+                    <!-- Logo 1 -->
+                    <div class="client-logo w-36 h-24 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center bg-white rounded-xl shadow-sm p-3 hover:shadow-lg">
+                        <img src="https://placehold.co/400x200/f97316/white?text=Heathrow&font=montserrat" alt="Heathrow Airport" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <!-- Logo 2 -->
+                    <div class="client-logo w-36 h-24 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center bg-white rounded-xl shadow-sm p-3 hover:shadow-lg">
+                        <img src="nhs.png" alt="Westfield London" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <!-- Logo 3 -->
+                    <div class="client-logo w-36 h-24 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center bg-white rounded-xl shadow-sm p-3 hover:shadow-lg">
+                        <img src="farmfoods.png" alt="Sky UK" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <!-- Logo 4 -->
+                    <div class="client-logo w-36 h-24 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center bg-white rounded-xl shadow-sm p-3 hover:shadow-lg">
+                        <img src="steel.png" alt="Brentford FC" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <!-- Logo 5 -->
+                    <div class="client-logo w-36 h-24 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center bg-white rounded-xl shadow-sm p-3 hover:shadow-lg">
+                        <img src="tfs.png" alt="West London NHS" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <!-- Logo 6 -->
+                    <div class="client-logo w-36 h-24 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center bg-white rounded-xl shadow-sm p-3 hover:shadow-lg">
+                        <img src="metro.png" alt="University of London" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <!-- Logo 7 -->
+                    <div class="client-logo w-36 h-24 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center bg-white rounded-xl shadow-sm p-3 hover:shadow-lg">
+                        <img src="port.png" alt="Hounslow Council" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <!-- Logo 8 -->
+                    <div class="client-logo w-36 h-24 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center bg-white rounded-xl shadow-sm p-3 hover:shadow-lg">
+                        <img src="citizen.png" alt="Tesco" class="max-w-full max-h-full object-contain">
+                    </div>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="flex items-center gap-12">
+                    <div class="client-logo w-36 h-24 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center bg-white rounded-xl shadow-sm p-3 hover:shadow-lg">
+                        <img src="lcc.png" alt="Heathrow Airport" class="max-w-full max-h-full object-contain">
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Carousel Controls -->
+        <div class="flex justify-center gap-4 mt-4">
+            <button onclick="prevSlide()" class="carousel-btn w-10 h-10 rounded-full bg-slate-100 hover:bg-orange-600 text-slate-600 hover:text-white transition-all duration-300 flex items-center justify-center">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="nextSlide()" class="carousel-btn w-10 h-10 rounded-full bg-slate-100 hover:bg-orange-600 text-slate-600 hover:text-white transition-all duration-300 flex items-center justify-center">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Carousel Animation */
+    .carousel-track {
+        display: flex;
+        width: fit-content;
+        animation: scrollLogos 30s linear infinite;
+    }
+
+    @keyframes scrollLogos {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* Pause animation on hover */
+    .carousel-track:hover {
+        animation-play-state: paused;
+    }
+
+    .hover\:pause-animation:hover {
+        animation-play-state: paused;
+    }
+
+    /* Client Logo Styles */
+    .client-logo {
+        filter: grayscale(100%);
+        opacity: 0.7;
+        transition: all 0.3s ease;
+    }
+
+    .client-logo:hover {
+        filter: grayscale(0%);
+        opacity: 1;
+        transform: translateY(-5px);
+    }
+
+    /* Carousel Button Styles */
+    .carousel-btn {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .carousel-btn:active {
+        transform: scale(0.95);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .client-logo {
+            width: 100px;
+            height: 70px;
+        }
+        .carousel-track {
+            gap: 8px;
+        }
+        .carousel-track .flex {
+            gap: 8px;
+        }
+    }
+</style>
+
+<script>
+    // Carousel manual controls
+    let currentPosition = 0;
+    let isAnimating = false;
+    const track = document.querySelector('.carousel-track');
+    
+    function nextSlide() {
+        if (isAnimating || !track) return;
+        isAnimating = true;
+        
+        const firstSet = track.querySelector('.flex');
+        if (firstSet) {
+            const setWidth = firstSet.offsetWidth;
+            const logoWidth = setWidth / 8; // Approximate width per logo
+            currentPosition -= logoWidth;
+            
+            track.style.transition = 'transform 0.5s ease';
+            track.style.transform = `translateX(${currentPosition}px)`;
+            
+            setTimeout(() => {
+                if (Math.abs(currentPosition) >= setWidth) {
+                    currentPosition = 0;
+                    track.style.transition = 'none';
+                    track.style.transform = `translateX(0px)`;
+                }
+                isAnimating = false;
+            }, 500);
+        } else {
+            isAnimating = false;
+        }
+    }
+    
+    function prevSlide() {
+        if (isAnimating || !track) return;
+        isAnimating = true;
+        
+        const firstSet = track.querySelector('.flex');
+        if (firstSet) {
+            const setWidth = firstSet.offsetWidth;
+            const logoWidth = setWidth / 8;
+            currentPosition += logoWidth;
+            
+            track.style.transition = 'transform 0.5s ease';
+            track.style.transform = `translateX(${currentPosition}px)`;
+            
+            setTimeout(() => {
+                if (currentPosition > 0) {
+                    currentPosition = -setWidth;
+                    track.style.transition = 'none';
+                    track.style.transform = `translateX(${currentPosition}px)`;
+                }
+                isAnimating = false;
+            }, 500);
+        } else {
+            isAnimating = false;
+        }
+    }
+    
+    // Pause auto-scroll when manually controlling
+    document.querySelectorAll('.carousel-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (track) {
+                track.style.animationPlayState = 'paused';
+                setTimeout(() => {
+                    track.style.animationPlayState = 'running';
+                }, 5000);
+            }
+        });
+    });
+</script>
+
+
+<!-- Client Growth Chart Section - Working Counting Animation -->
+<section class="py-16 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <span class="text-orange-600 font-semibold uppercase tracking-wide">Our Growth Story</span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2">Client Base Growth</h2>
+            <p class="text-slate-300 max-w-2xl mx-auto mt-4">Trusted by hundreds of businesses across the UK</p>
+        </div>
+
+        <!-- Stats Overview Cards with Working Counters -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <div class="stat-card bg-white/10 backdrop-blur-md rounded-2xl p-5 text-center border border-white/20 hover:scale-105 transition-transform duration-300">
+                <div class="stat-number text-3xl font-bold text-orange-500" id="totalClients">0</div>
+                <div class="text-sm text-slate-300 mt-1">Total Clients</div>
+                <div class="text-xs text-green-400 mt-2">↑ +156% YoY</div>
+            </div>
+            <div class="stat-card bg-white/10 backdrop-blur-md rounded-2xl p-5 text-center border border-white/20 hover:scale-105 transition-transform duration-300">
+                <div class="stat-number text-3xl font-bold text-orange-500" id="activeContracts">0</div>
+                <div class="text-sm text-slate-300 mt-1">Active Contracts</div>
+                <div class="text-xs text-green-400 mt-2">↑ +89% YoY</div>
+            </div>
+            <div class="stat-card bg-white/10 backdrop-blur-md rounded-2xl p-5 text-center border border-white/20 hover:scale-105 transition-transform duration-300">
+                <div class="stat-number text-3xl font-bold text-orange-500" id="retentionRate">0</div>
+                <div class="text-sm text-slate-300 mt-1">Client Retention</div>
+                <div class="text-xs text-green-400 mt-2">↑ +12% YoY</div>
+            </div>
+            <div class="stat-card bg-white/10 backdrop-blur-md rounded-2xl p-5 text-center border border-white/20 hover:scale-105 transition-transform duration-300">
+                <div class="stat-number text-3xl font-bold text-orange-500" id="satisfactionRate">0</div>
+                <div class="text-sm text-slate-300 mt-1">Satisfaction Rate</div>
+                <div class="text-xs text-green-400 mt-2">↑ +8% YoY</div>
+            </div>
+        </div>
+
+        <!-- Main Chart Container -->
+        <div class="bg-white rounded-2xl p-6 shadow-2xl">
+            <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+                <h3 class="text-xl font-bold text-slate-800">Annual Client Growth (2020 - 2026)</h3>
+                <div class="flex gap-3">
+                    <button onclick="setChartType('line')" class="chart-type-btn active px-4 py-2 rounded-lg text-sm font-semibold transition">📈 Line Chart</button>
+                    <button onclick="setChartType('bar')" class="chart-type-btn px-4 py-2 rounded-lg text-sm font-semibold transition">📊 Bar Chart</button>
+                    <button onclick="setChartType('radar')" class="chart-type-btn px-4 py-2 rounded-lg text-sm font-semibold transition">📡 Radar</button>
+                </div>
+            </div>
+            
+            <!-- Real Graph Canvas -->
+            <canvas id="growthChart" width="800" height="400" style="max-height: 400px; width: 100%;"></canvas>
+            
+            <!-- Chart Insights -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 pt-4 border-t border-slate-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-arrow-trend-up text-green-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500">Fastest Growth Year</p>
+                        <p class="font-semibold text-slate-800">2024 (+78 clients)</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-chart-line text-blue-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500">CAGR (2020-2026)</p>
+                        <p class="font-semibold text-slate-800">+98% annually</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-users text-orange-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500">Average Client Lifetime</p>
+                        <p class="font-semibold text-slate-800">4.2 years</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Growth Milestones Timeline -->
+        <div class="mt-12">
+            <h3 class="text-xl font-bold text-white text-center mb-8">Our Growth Milestones</h3>
+            <div class="relative">
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-orange-600/30 hidden md:block"></div>
+                
+                <div class="space-y-8">
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="md:w-1/2 md:text-right">
+                            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 md:mr-8 hover:bg-white/20 transition-all">
+                                <div class="text-orange-500 font-bold text-2xl">2020</div>
+                                <div class="text-white font-semibold text-lg">Company Founded</div>
+                                <p class="text-slate-300 text-sm mt-1">Started with 5 initial clients in West London</p>
+                            </div>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
+                        </div>
+                        <div class="md:w-1/2"></div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="md:w-1/2"></div>
+                        <div class="relative z-10">
+                            <div class="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 md:ml-8 hover:bg-white/20 transition-all">
+                                <div class="text-orange-500 font-bold text-2xl">2022</div>
+                                <div class="text-white font-semibold text-lg">50+ Active Clients</div>
+                                <p class="text-slate-300 text-sm mt-1">Expanded K9 unit services across London</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="md:w-1/2 md:text-right">
+                            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 md:mr-8 hover:bg-white/20 transition-all">
+                                <div class="text-orange-500 font-bold text-2xl">2024</div>
+                                <div class="text-white font-semibold text-lg">150+ Clients Nationwide</div>
+                                <p class="text-slate-300 text-sm mt-1">Expanded to Manchester, Leeds, Birmingham</p>
+                            </div>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
+                        </div>
+                        <div class="md:w-1/2"></div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="md:w-1/2"></div>
+                        <div class="relative z-10">
+                            <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold animate-pulse">4</div>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="bg-gradient-to-r from-orange-600 to-orange-500 rounded-2xl p-5 md:ml-8 shadow-lg">
+                                <div class="text-white font-bold text-2xl">2026</div>
+                                <div class="text-white font-semibold text-lg">300+ Target</div>
+                                <p class="text-orange-100 text-sm mt-1">New offices opening in Scotland & Newcastle</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Testimonial Quote -->
+        <div class="mt-12 bg-white/5 rounded-2xl p-6 text-center border border-white/10">
+            <i class="fa-solid fa-quote-left text-3xl text-orange-500 opacity-50 mb-3"></i>
+            <p class="text-slate-200 italic">"West London Security has been our trusted partner since 2021. Their professional approach and rapid growth reflect the quality of service they provide."</p>
+            <p class="text-orange-500 font-semibold mt-3">— Thames Logistics, Client since 2021</p>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Client growth data (2020 - 2026)
+    const years = ['2020', '2021', '2022', '2023', '2024', '2025', '2026'];
+    const actualData = [5, 18, 52, 89, 167, 238, 315];
+    const projectedData = [5, 18, 52, 89, 167, 238, 345];
+    
+    let growthChart = null;
+    let currentChartType = 'line';
+    let animationStarted = false;
+    let counterInterval = null;
+    
+    // Counter Animation Function - FULLY WORKING
+    function animateCounter(elementId, targetValue, suffix = '') {
+        const element = document.getElementById(elementId);
+        if (!element) {
+            console.log('Element not found:', elementId);
+            return;
+        }
+        
+        // Clear any existing interval for this element
+        if (window[elementId + 'Interval']) {
+            clearInterval(window[elementId + 'Interval']);
+        }
+        
+        let current = 0;
+        const duration = 2000; // 2 seconds
+        const steps = 60;
+        const increment = targetValue / steps;
+        let step = 0;
+        
+        const timer = setInterval(() => {
+            step++;
+            current += increment;
+            
+            if (step >= steps) {
+                element.innerText = targetValue + suffix;
+                clearInterval(timer);
+                window[elementId + 'Interval'] = null;
+            } else {
+                element.innerText = Math.floor(current) + suffix;
+            }
+        }, duration / steps);
+        
+        // Store interval reference
+        window[elementId + 'Interval'] = timer;
+    }
+    
+    // Start all counters immediately (for testing)
+    function startCountersNow() {
+        console.log('Starting counters...');
+        animateCounter('totalClients', 315, '+');
+        animateCounter('activeContracts', 189, '+');
+        animateCounter('retentionRate', 98, '%');
+        animateCounter('satisfactionRate', 96, '%');
+    }
+    
+    // Create the real graph
+    function createChart(type) {
+        if (growthChart) {
+            growthChart.destroy();
+        }
+        
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        
+        const config = {
+            type: type === 'bar' ? 'bar' : 'line',
+            data: {
+                labels: years,
+                datasets: [
+                    {
+                        label: 'Actual Clients',
+                        data: actualData,
+                        borderColor: '#f97316',
+                        backgroundColor: type === 'bar' ? '#f97316' : 'rgba(249, 115, 22, 0.1)',
+                        borderWidth: 3,
+                        fill: type === 'line',
+                        tension: 0.3,
+                        pointRadius: 6,
+                        pointHoverRadius: 10,
+                        pointBackgroundColor: '#f97316',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointStyle: 'circle',
+                    },
+                    {
+                        label: 'Projected Growth',
+                        data: projectedData,
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 2,
+                        borderDash: [8, 4],
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: '#10b981',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointStyle: 'triangle',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            boxWidth: 12,
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        titleColor: '#f97316',
+                        bodyColor: '#ffffff',
+                        borderColor: '#f97316',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw} clients`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Clients',
+                            font: { size: 12, weight: 'bold' },
+                            color: '#64748b'
+                        },
+                        grid: {
+                            color: '#e2e8f0',
+                            drawBorder: true,
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' clients';
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year',
+                            font: { size: 12, weight: 'bold' },
+                            color: '#64748b'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        };
+        
+        // Radar chart special config
+        if (type === 'radar') {
+            config.type = 'radar';
+            config.options = {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw} clients`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 50
+                        }
+                    }
+                }
+            };
+        }
+        
+        growthChart = new Chart(ctx, config);
+    }
+    
+    // Change chart type
+    function setChartType(type) {
+        currentChartType = type;
+        createChart(type);
+        
+        // Update button styles
+        document.querySelectorAll('.chart-type-btn').forEach(btn => {
+            btn.classList.remove('bg-orange-600', 'text-white');
+            btn.classList.add('bg-slate-100', 'text-slate-700');
+        });
+        if (event && event.target) {
+            event.target.classList.remove('bg-slate-100', 'text-slate-700');
+            event.target.classList.add('bg-orange-600', 'text-white');
+        }
+    }
+    
+    // Check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+    
+    // Start animations when section is visible
+    function checkAndStartAnimation() {
+        const section = document.querySelector('.bg-gradient-to-br');
+        if (section && isInViewport(section) && !animationStarted) {
+            animationStarted = true;
+            console.log('Section visible, starting animations...');
+            startCountersNow();
+            createChart('line');
+            // Remove scroll listener once started
+            window.removeEventListener('scroll', checkAndStartAnimation);
+            window.removeEventListener('resize', checkAndStartAnimation);
+        }
+    }
+    
+    // Start counters immediately on page load (fallback)
+    setTimeout(() => {
+        if (!animationStarted) {
+            console.log('Starting counters immediately (fallback)...');
+            startCountersNow();
+            createChart('line');
+            animationStarted = true;
+        }
+    }, 500);
+    
+    // Also start on scroll
+    window.addEventListener('scroll', checkAndStartAnimation);
+    window.addEventListener('resize', checkAndStartAnimation);
+    
+    // Initial check
+    setTimeout(checkAndStartAnimation, 200);
+    
+    // Stat card hover effects
+    document.querySelectorAll('.stat-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+        });
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+    });
+</script>
+
+<style>
+    .chart-type-btn {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .chart-type-btn.active {
+        background-color: #f97316;
+        color: white;
+    }
+    
+    .stat-card {
+        transition: transform 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .bg-white\/10 {
+        animation: slideIn 0.5s ease-out;
+    }
+    
+    /* Counter number styling */
+    .stat-number {
+        font-feature-settings: "tnum";
+        font-variant-numeric: tabular-nums;
+        transition: all 0.1s linear;
+    }
+</style>
+
+<!-- Our Areas Section - With Real City Images -->
+<section id="areas" class="py-24 bg-slate-50 scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <span class="text-orange-600 font-semibold uppercase tracking-wide">Nationwide Coverage</span>
+            <h2 class="text-4xl md:text-5xl font-bold mt-2">Our Areas</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto mt-4">Providing professional security services across the United Kingdom</p>
+        </div>
+
+        <!-- Cities Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+            
+            <!-- London -->
+            <div class="area-card group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="relative h-32 overflow-hidden">
+                    <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcS0OgrRvN0DBh3e4Kn2u86Q-mpEE80K2iFh2LZ9IXjc_vSgZRKmC0HJxIdR17jiydeO7Q9ir2DMHY0Bv7oLh6IEcgo&s=19" alt="London" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 text-white">
+                        <i class="fa-solid fa-location-dot text-orange-400 text-lg"></i>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg text-slate-800">London</h3>
+                    <p class="text-xs text-slate-500 mt-1">Greater London</p>
+                    <div class="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-orange-600 text-xs font-semibold">Learn More →</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manchester -->
+            <div class="area-card group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="relative h-32 overflow-hidden">
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHP2jhHf5z7ndg2qt4LAKo213ACUGrYy2WSWZE-6qH4likNd1rpRP6lC4Pbv_fs2M0oLKAG3XbEDVWAW6F1hLxG6xl4F4EXrZWHImO3eNjqUwtKr7lXOWJCP2B0tHA-t7fM8w8OUA=w810-h468-n-k-no" alt="Manchester" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 text-white">
+                        <i class="fa-solid fa-location-dot text-orange-400 text-lg"></i>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg text-slate-800">Manchester</h3>
+                    <p class="text-xs text-slate-500 mt-1">North West</p>
+                    <div class="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-orange-600 text-xs font-semibold">Learn More →</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leeds -->
+            <div class="area-card group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="relative h-32 overflow-hidden">
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFV7uLLD1-EHkhqqAuGG5i395ZB-U1LHlkHEY9WZol6FdjRSucuGu0TKeZCdnhZCfso4Nz7_4cM81orV50tUuTdlF1lZBIIISzVREMNLICk7LeTyThzGyV9OFakkzeVsBhplIwL=w810-h468-n-k-no" alt="Leeds" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 text-white">
+                        <i class="fa-solid fa-location-dot text-orange-400 text-lg"></i>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg text-slate-800">Leeds</h3>
+                    <p class="text-xs text-slate-500 mt-1">Yorkshire</p>
+                    <div class="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-orange-600 text-xs font-semibold">Learn More →</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newcastle -->
+            <div class="area-card group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="relative h-32 overflow-hidden">
+                    <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcTrP3S5JBOc5Ad3ltJccfzs23v2ZVRsbXFIrmcIwNEaU1aZUw8pwmV_Pqx_zhQaz-uCWPCGBqO7g85NNwEshK6EOIUH&s=19" alt="Newcastle" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 text-white">
+                        <i class="fa-solid fa-location-dot text-orange-400 text-lg"></i>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg text-slate-800">Newcastle</h3>
+                    <p class="text-xs text-slate-500 mt-1">North East</p>
+                    <div class="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-orange-600 text-xs font-semibold">Learn More →</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hull -->
+            <div class="area-card group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="relative h-32 overflow-hidden">
+                    <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcSu3G3hl7rh2nZd4yY1qNesQhOVHwweXEtx2tDqXizf9iSiCrAxB-FBxZQ8KEILmqocftyc8oWZ-K__y0yZmOlMgK4&s=19" alt="Hull" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 text-white">
+                        <i class="fa-solid fa-location-dot text-orange-400 text-lg"></i>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg text-slate-800">Hull</h3>
+                    <p class="text-xs text-slate-500 mt-1">Yorkshire</p>
+                    <div class="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-orange-600 text-xs font-semibold">Learn More →</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scotland (Edinburgh) -->
+            <div class="area-card group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="relative h-32 overflow-hidden">
+                    <img src="data:image/jpeg;base64,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" alt="Scotland" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 text-white">
+                        <i class="fa-solid fa-location-dot text-orange-400 text-lg"></i>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg text-slate-800">Scotland</h3>
+                    <p class="text-xs text-slate-500 mt-1">Glasgow & Edinburgh</p>
+                    <div class="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-orange-600 text-xs font-semibold">Learn More →</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sheffield -->
+            <div class="area-card group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="relative h-32 overflow-hidden">
+                    <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcS2o49jISF55yuvLerAMotEinaKPXtPpuCnh5ArmiFM3R3_ACWNXyfLPOiUzaM2opevJqsEQe-0bUbF2H4D6rzJ9jo&s=19" alt="Sheffield" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 text-white">
+                        <i class="fa-solid fa-location-dot text-orange-400 text-lg"></i>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg text-slate-800">Sheffield</h3>
+                    <p class="text-xs text-slate-500 mt-1">South Yorkshire</p>
+                    <div class="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-orange-600 text-xs font-semibold">Learn More →</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Birmingham -->
+            <div class="area-card group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="relative h-32 overflow-hidden">
+                    <img src="data:image/jpeg;base64,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" alt="Birmingham" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 text-white">
+                        <i class="fa-solid fa-location-dot text-orange-400 text-lg"></i>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-bold text-lg text-slate-800">Birmingham</h3>
+                    <p class="text-xs text-slate-500 mt-1">West Midlands</p>
+                    <div class="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-orange-600 text-xs font-semibold">Learn More →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Areas Button -->
+        <div class="text-center mt-12">
+            <button onclick="showAllAreas()" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-orange-600 text-white px-8 py-3 rounded-2xl font-semibold transition-all duration-300">
+                View All Coverage Areas <i class="fa-solid fa-map-marker-alt"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Area Card Styles */
+    .area-card {
+        transform: translateY(0);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .area-card:hover {
+        transform: translateY(-8px);
+    }
+    
+    /* Card inner elements */
+    .area-card .fa-location-dot {
+        transition: transform 0.3s ease;
+    }
+    
+    .area-card:hover .fa-location-dot {
+        transform: scale(1.2);
+    }
+    
+    /* Ensure images load properly */
+    .area-card img {
+        background-color: #f1f5f9;
+    }
+</style>
+
+<script>
+    // City details for popup
+    const cityDetails = {
+        'London': {
+            description: 'Our headquarters serving all boroughs of Greater London including Westminster, Camden, Southwark, Tower Hamlets, and surrounding areas.',
+            offices: 'Main Office: 160 Waye Avenue, Hounslow, TW5 9SF',
+            response: 'Response Time: 20-30 minutes',
+            clients: 'Clients: 150+ businesses protected',
+            image: 'https://images.pexels.com/photos/27582360/pexels-photo-27582360/free-photo-of-london-eye-and-houses-of-parliament-in-london-uk.jpeg?auto=compress&cs=tinysrgb&w=400'
+        },
+        'Manchester': {
+            description: 'Full security coverage across Greater Manchester including Manchester City Centre, Salford, Trafford, and surrounding boroughs.',
+            offices: 'Regional Office: Manchester City Centre, M1',
+            response: 'Response Time: 25-35 minutes',
+            clients: 'Clients: 80+ businesses protected',
+            image: 'https://images.pexels.com/photos/3361395/pexels-photo-3361395.jpeg?auto=compress&cs=tinysrgb&w=400'
+        },
+        'Leeds': {
+            description: 'Comprehensive security services throughout Leeds and West Yorkshire including Bradford, Huddersfield, and Wakefield.',
+            offices: 'Regional Office: Leeds City Centre, LS1',
+            response: 'Response Time: 25-35 minutes',
+            clients: 'Clients: 60+ businesses protected',
+            image: 'https://images.pexels.com/photos/19591415/pexels-photo-19591415/free-photo-of-leeds-cityscape.jpeg?auto=compress&cs=tinysrgb&w=400'
+        },
+        'Newcastle': {
+            description: 'Security solutions across Newcastle upon Tyne, Gateshead, Sunderland, and the wider North East region.',
+            offices: 'Regional Office: Newcastle upon Tyne, NE1',
+            response: 'Response Time: 30-40 minutes',
+            clients: 'Clients: 45+ businesses protected',
+            image: 'https://images.pexels.com/photos/25781241/pexels-photo-25781241/free-photo-of-tyne-bridge-in-newcastle-upon-tyne-uk.jpeg?auto=compress&cs=tinysrgb&w=400'
+        },
+        'Hull': {
+            description: 'Professional security services for Kingston upon Hull and East Riding of Yorkshire.',
+            offices: 'Regional Office: Hull City Centre, HU1',
+            response: 'Response Time: 30-40 minutes',
+            clients: 'Clients: 30+ businesses protected',
+            image: 'https://images.pexels.com/photos/12609889/pexels-photo-12609889.jpeg?auto=compress&cs=tinysrgb&w=400'
+        },
+        'Scotland': {
+            description: 'Extensive security coverage across Glasgow, Edinburgh, Aberdeen, and the Scottish Central Belt.',
+            offices: 'Regional Offices: Glasgow G2 & Edinburgh EH1',
+            response: 'Response Time: 35-45 minutes',
+            clients: 'Clients: 100+ businesses protected',
+            image: 'https://images.pexels.com/photos/15397078/pexels-photo-15397078/free-photo-of-edinburgh-castle.jpeg?auto=compress&cs=tinysrgb&w=400'
+        },
+        'Sheffield': {
+            description: 'Complete security solutions for Sheffield, Rotherham, Doncaster, and South Yorkshire.',
+            offices: 'Regional Office: Sheffield City Centre, S1',
+            response: 'Response Time: 25-35 minutes',
+            clients: 'Clients: 50+ businesses protected',
+            image: 'https://images.pexels.com/photos/12878248/pexels-photo-12878248.jpeg?auto=compress&cs=tinysrgb&w=400'
+        },
+        'Birmingham': {
+            description: 'Full security coverage across Birmingham, Wolverhampton, Coventry, and the West Midlands.',
+            offices: 'Regional Office: Birmingham City Centre, B1',
+            response: 'Response Time: 25-35 minutes',
+            clients: 'Clients: 90+ businesses protected',
+            image: 'https://images.pexels.com/photos/19591415/pexels-photo-19591415/free-photo-of-birmingham-cityscape.jpeg?auto=compress&cs=tinysrgb&w=400'
+        }
+    };
+    
+    // Add click event to all area cards
+    document.querySelectorAll('.area-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const cityName = card.querySelector('h3').innerText;
+            const details = cityDetails[cityName] || {
+                description: `Professional security services available in ${cityName} and surrounding areas.`,
+                offices: 'Contact us for office location',
+                response: 'Rapid response available',
+                clients: 'Growing client portfolio'
+            };
+            
+            Swal.fire({
+                title: `<i class="fa-solid fa-location-dot text-orange-600"></i> ${cityName}`,
+                html: `
+                    <div style="text-align: left;">
+                        <img src="${details.image}" alt="${cityName}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 15px;">
+                        <p style="margin-bottom: 10px;">${details.description}</p>
+                        <hr style="margin: 10px 0; border-color: #e2e8f0;">
+                        <p><strong><i class="fa-solid fa-building"></i> Office:</strong> ${details.offices}</p>
+                        <p><strong><i class="fa-solid fa-clock"></i> Response:</strong> ${details.response}</p>
+                        <p><strong><i class="fa-solid fa-users"></i> ${details.clients}</p>
+                        <hr style="margin: 10px 0; border-color: #e2e8f0;">
+                        <p><i class="fa-solid fa-shield-halved text-orange-600"></i> <strong>Services Available:</strong> Static Guards, K9 Units, Mobile Patrols, CCTV Monitoring</p>
+                    </div>
+                `,
+                icon: 'info',
+                confirmButtonColor: '#f97316',
+                confirmButtonText: 'Get a Quote',
+                showCancelButton: true,
+                cancelButtonText: 'Close',
+                width: '500px'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                    const messageField = document.getElementById('message');
+                    if (messageField) {
+                        const currentMessage = messageField.value || '';
+                        if (!currentMessage.includes(cityName)) {
+                            messageField.value = `I need security services in ${cityName}. ${currentMessage}`;
+                        }
+                    }
+                }
+            });
+        });
+    });
+    
+    function showAllAreas() {
+        Swal.fire({
+            title: 'Our Nationwide Coverage',
+            html: `
+                <div style="text-align: left; max-height: 450px; overflow-y: auto;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <img src="https://images.pexels.com/photos/27582360/pexels-photo-27582360/free-photo-of-london-eye-and-houses-of-parliament-in-london-uk.jpeg?auto=compress&cs=tinysrgb&w=80" style="width: 50px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <div><strong>London</strong><br><span style="font-size: 12px;">Headquarters - All boroughs</span></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <img src="https://images.pexels.com/photos/3361395/pexels-photo-3361395.jpeg?auto=compress&cs=tinysrgb&w=80" style="width: 50px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <div><strong>Manchester</strong><br><span style="font-size: 12px;">North West Regional Office</span></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <img src="https://images.pexels.com/photos/19591415/pexels-photo-19591415/free-photo-of-leeds-cityscape.jpeg?auto=compress&cs=tinysrgb&w=80" style="width: 50px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <div><strong>Leeds</strong><br><span style="font-size: 12px;">Yorkshire Regional Office</span></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <img src="https://images.pexels.com/photos/25781241/pexels-photo-25781241/free-photo-of-tyne-bridge-in-newcastle-upon-tyne-uk.jpeg?auto=compress&cs=tinysrgb&w=80" style="width: 50px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <div><strong>Newcastle</strong><br><span style="font-size: 12px;">North East Regional Office</span></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <img src="https://images.pexels.com/photos/12609889/pexels-photo-12609889.jpeg?auto=compress&cs=tinysrgb&w=80" style="width: 50px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <div><strong>Hull</strong><br><span style="font-size: 12px;">East Yorkshire Office</span></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <img src="https://images.pexels.com/photos/15397078/pexels-photo-15397078/free-photo-of-edinburgh-castle.jpeg?auto=compress&cs=tinysrgb&w=80" style="width: 50px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <div><strong>Scotland</strong><br><span style="font-size: 12px;">Glasgow & Edinburgh Offices</span></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <img src="https://images.pexels.com/photos/12878248/pexels-photo-12878248.jpeg?auto=compress&cs=tinysrgb&w=80" style="width: 50px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <div><strong>Sheffield</strong><br><span style="font-size: 12px;">South Yorkshire Office</span></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="https://images.pexels.com/photos/19591415/pexels-photo-19591415/free-photo-of-birmingham-cityscape.jpeg?auto=compress&cs=tinysrgb&w=80" style="width: 50px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <div><strong>Birmingham</strong><br><span style="font-size: 12px;">West Midlands Office</span></div>
+                    </div>
+                    <hr style="margin: 15px 0;">
+                    <p style="background: #fef3c7; padding: 10px; border-radius: 10px;">
+                        <i class="fa-solid fa-rocket text-orange-600"></i> <strong>Nationwide Coverage</strong><br>
+                        We provide security services across the entire UK with rapid response teams.
+                    </p>
+                </div>
+            `,
+            icon: 'info',
+            confirmButtonColor: '#f97316',
+            confirmButtonText: 'Contact Us',
+            width: '450px'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+</script>
+
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="py-24 bg-slate-100 scroll-margin">
+        <div class="max-w-7xl mx-auto px-6"><div class="text-center"><h2 class="text-5xl font-bold" data-aos="zoom-in">What Our Clients Say</h2></div>
+        <div id="testimonial-carousel" class="relative overflow-hidden mt-14"><div id="slides" class="flex transition-transform duration-700"></div></div>
+        <div class="flex justify-center gap-6 mt-12"><button onclick="prevSlide()" class="w-12 h-12 rounded-full border bg-white shadow hover:bg-orange-50"><i class="fa-solid fa-arrow-left"></i></button><button onclick="nextSlide()" class="w-12 h-12 rounded-full border bg-white shadow hover:bg-orange-50"><i class="fa-solid fa-arrow-right"></i></button></div></div>
+    </section>
+<div class="flex justify-center items-center w-full py-8">
+    <div class="w-[70%] h-[400px] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 max-md:w-[90%] max-md:h-[300px]">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.751432317222!2d-0.371447684230937!3d51.48219767963265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760e8c6d4b2c3b%3A0x7f2a8c2e6b2f5c1d!2s160%20Waye%20Avenue%2C%20Hounslow%2C%20TW5%209SF!5e0!3m2!1sen!2suk!4v1712345678901!5m2!1sen!2suk" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</div><style>
+/* Enhanced WhatsApp Widget */
+.whatsapp-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    font-family: 'Inter', sans-serif;
+}
+
+.whatsapp-trigger {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.whatsapp-trigger i {
+    color: white;
+    font-size: 35px;
+    transition: transform 0.3s;
+}
+
+.whatsapp-trigger:hover {
+    transform: scale(1.1);
+}
+
+.whatsapp-trigger:hover i {
+    transform: rotate(5deg);
+}
+
+/* Popup Card */
+.whatsapp-card {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 320px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.whatsapp-widget:hover .whatsapp-card {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.whatsapp-header {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.whatsapp-header i {
+    font-size: 40px;
+}
+
+.whatsapp-header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.whatsapp-header p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.whatsapp-body {
+    padding: 20px;
+}
+
+.whatsapp-message {
+    background: #f0f2f5;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #1e293b;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.whatsapp-message::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #f0f2f5;
+}
+
+.whatsapp-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.whatsapp-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #1e293b;
+    transition: all 0.3s;
+    border: 1px solid #e9ecef;
+}
+
+.whatsapp-btn:hover {
+    background: #25D366;
+    color: white;
+    transform: translateX(5px);
+}
+
+.whatsapp-btn i {
+    font-size: 20px;
+    width: 25px;
+}
+
+.whatsapp-btn span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.close-card {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+@media (max-width: 768px) {
+    .whatsapp-card {
+        width: 280px;
+        right: -10px;
+    }
+}
+</style>
+<!-- FAQ SECTION with Smooth Accordion -->
+<section id="faq" class="py-24 bg-white scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <span class="text-orange-600 font-semibold uppercase tracking-wide">FAQ</span>
+            <h2 class="text-4xl md:text-5xl font-bold mt-2">Frequently Asked Questions</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto mt-4">Find answers to common questions about our security services</p>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+            <!-- FAQ Item 1 -->
+            <div class="faq-item mb-4 border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all">
+                <button class="faq-question w-full text-left px-6 py-5 flex justify-between items-center bg-white hover:bg-slate-50 transition-all">
+                    <span class="font-semibold text-lg text-slate-800">What areas do you cover in West London?</span>
+                    <i class="fa-solid fa-chevron-down text-orange-600 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <div class="px-6 pb-5 pt-2 text-slate-600 border-t border-slate-100">
+                        <p>We cover all of West London including Hounslow, Brentford, Chiswick, Kew, Acton, Ealing, Hammersmith, Fulham, Richmond, Twickenham, Hayes, Uxbridge, and surrounding areas. Our rapid response team can reach any location within 20-30 minutes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item mb-4 border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all">
+                <button class="faq-question w-full text-left px-6 py-5 flex justify-between items-center bg-white hover:bg-slate-50 transition-all">
+                    <span class="font-semibold text-lg text-slate-800">Are your security guards SIA licensed?</span>
+                    <i class="fa-solid fa-chevron-down text-orange-600 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <div class="px-6 pb-5 pt-2 text-slate-600 border-t border-slate-100">
+                        <p>Yes, 100% of our security officers are fully SIA (Security Industry Authority) licensed, vetted, and trained. We conduct regular background checks and ongoing training to ensure compliance with UK security regulations. All licenses are verifiable on the SIA register.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item mb-4 border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all">
+                <button class="faq-question w-full text-left px-6 py-5 flex justify-between items-center bg-white hover:bg-slate-50 transition-all">
+                    <span class="font-semibold text-lg text-slate-800">How quickly can you deploy security guards?</span>
+                    <i class="fa-solid fa-chevron-down text-orange-600 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <div class="px-6 pb-5 pt-2 text-slate-600 border-t border-slate-100">
+                        <p>We offer rapid deployment within 2-4 hours for emergency requirements. For planned security contracts, we can have officers on-site within 24-48 hours. Our mobile patrol units can reach any West London location within 20 minutes for immediate response.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="faq-item mb-4 border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all">
+                <button class="faq-question w-full text-left px-6 py-5 flex justify-between items-center bg-white hover:bg-slate-50 transition-all">
+                    <span class="font-semibold text-lg text-slate-800">Do you provide K9 security units?</span>
+                    <i class="fa-solid fa-chevron-down text-orange-600 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <div class="px-6 pb-5 pt-2 text-slate-600 border-t border-slate-100">
+                        <p>Yes, we have specially trained K9 security units for perimeter patrol, drug detection, explosive detection, and crowd control. Our handlers are fully certified and work with highly trained Belgian Malinois and German Shepherds. K9 units are available 24/7.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 5 -->
+            <div class="faq-item mb-4 border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all">
+                <button class="faq-question w-full text-left px-6 py-5 flex justify-between items-center bg-white hover:bg-slate-50 transition-all">
+                    <span class="font-semibold text-lg text-slate-800">What types of businesses do you serve?</span>
+                    <i class="fa-solid fa-chevron-down text-orange-600 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <div class="px-6 pb-5 pt-2 text-slate-600 border-t border-slate-100">
+                        <p>We serve a wide range of businesses including retail stores, shopping centres, office buildings, construction sites, warehouses, logistics centres, hotels, restaurants, schools, universities, residential complexes, industrial estates, and event venues.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 6 -->
+            <div class="faq-item mb-4 border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all">
+                <button class="faq-question w-full text-left px-6 py-5 flex justify-between items-center bg-white hover:bg-slate-50 transition-all">
+                    <span class="font-semibold text-lg text-slate-800">Are you insured and bonded?</span>
+                    <i class="fa-solid fa-chevron-down text-orange-600 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <div class="px-6 pb-5 pt-2 text-slate-600 border-t border-slate-100">
+                        <p>Yes, West London Security Ltd carries comprehensive public liability insurance up to £10 million, employers' liability insurance, and professional indemnity coverage. We are fully bonded and all our officers are covered under our insurance policy.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 7 -->
+            <div class="faq-item mb-4 border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all">
+                <button class="faq-question w-full text-left px-6 py-5 flex justify-between items-center bg-white hover:bg-slate-50 transition-all">
+                    <span class="font-semibold text-lg text-slate-800">Do you offer 24/7 monitoring and support?</span>
+                    <i class="fa-solid fa-chevron-down text-orange-600 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <div class="px-6 pb-5 pt-2 text-slate-600 border-t border-slate-100">
+                        <p>Absolutely! Our command centre operates 24 hours a day, 7 days a week, 365 days a year. You'll have access to our support team anytime via phone. We also provide real-time reporting and incident alerts through our client portal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 8 -->
+            <div class="faq-item mb-4 border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all">
+                <button class="faq-question w-full text-left px-6 py-5 flex justify-between items-center bg-white hover:bg-slate-50 transition-all">
+                    <span class="font-semibold text-lg text-slate-800">How do I request a free security audit?</span>
+                    <i class="fa-solid fa-chevron-down text-orange-600 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                    <div class="px-6 pb-5 pt-2 text-slate-600 border-t border-slate-100">
+                        <p>You can request a free security audit by filling out the contact form on this page, calling us at 020 8123 4567, or emailing info@westlondonsecurity.co.uk. One of our security specialists will visit your premises, assess your needs, and provide a tailored quote within 48 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* FAQ Accordion Styles */
+    .faq-question {
+        cursor: pointer;
+        font-family: inherit;
+    }
+    
+    .faq-question i {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+    }
+    
+    .faq-item.active {
+        border-color: #f97316;
+        box-shadow: 0 4px 20px rgba(249, 115, 22, 0.1);
+    }
+    
+    .faq-item.active .faq-question {
+        background-color: #fef3c7;
+    }
+    
+    .faq-item.active .faq-question span {
+        color: #f97316;
+    }
+    
+    /* Smooth transitions */
+    .faq-answer {
+        transition: max-height 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+</style>
+
+<script>
+    // FAQ Accordion Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            
+            question.addEventListener('click', () => {
+                // Close all other FAQs
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        const otherAnswer = otherItem.querySelector('.faq-answer');
+                        otherItem.classList.remove('active');
+                        otherAnswer.style.maxHeight = null;
+                    }
+                });
+                
+                // Toggle current FAQ
+                if (item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    answer.style.maxHeight = null;
+                } else {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+        
+        // Open first FAQ by default (optional)
+        // const firstFaq = document.querySelector('.faq-item');
+        // if (firstFaq) {
+        //     const firstAnswer = firstFaq.querySelector('.faq-answer');
+        //     firstFaq.classList.add('active');
+        //     firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 'px';
+        // }
+    });
+</script>
+
+<!-- Our Sectors Section -->
+<section id="sectors" class="py-24 bg-slate-50 scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <span class="text-orange-600 font-semibold uppercase tracking-wide">Industries We Serve</span>
+            <h2 class="text-4xl md:text-5xl font-bold mt-2">Our Sectors</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto mt-4">Providing specialized security solutions across diverse industries</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            
+            <!-- Sector 1: Government -->
+            <div  class="sector-card group bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="sector-icon w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-landmark text-2xl text-orange-600 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800 mb-2">Government</h3>
+                <p class="text-slate-500 text-sm">Secure government buildings, councils, and public institutions</p>
+                <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span class="text-orange-600 text-sm font-semibold">Learn More →</span>
+                </div>
+            </div>
+
+            <!-- Sector 2: Education -->
+            <div class="sector-card group bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="sector-icon w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-graduation-cap text-2xl text-orange-600 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800 mb-2">Education</h3>
+                <p class="text-slate-500 text-sm">Schools, universities, colleges, and educational campuses</p>
+                <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span class="text-orange-600 text-sm font-semibold">Learn More →</span>
+                </div>
+            </div>
+
+            <!-- Sector 3: Information Technology -->
+            <div class="sector-card group bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="sector-icon w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-microchip text-2xl text-orange-600 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800 mb-2">Information Technology</h3>
+                <p class="text-slate-500 text-sm">Data centres, tech parks, and IT infrastructure protection</p>
+                <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span class="text-orange-600 text-sm font-semibold">Learn More →</span>
+                </div>
+            </div>
+
+            <!-- Sector 4: Retail -->
+            <div class="sector-card group bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="sector-icon w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-store text-2xl text-orange-600 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800 mb-2">Retail</h3>
+                <p class="text-slate-500 text-sm">Shopping centres, stores, supermarkets, and retail parks</p>
+                <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span class="text-orange-600 text-sm font-semibold">Learn More →</span>
+                </div>
+            </div>
+
+            <!-- Sector 5: Corporate -->
+            <div class="sector-card group bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="sector-icon w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-building text-2xl text-orange-600 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800 mb-2">Corporate</h3>
+                <p class="text-slate-500 text-sm">Office buildings, business parks, and corporate headquarters</p>
+                <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span class="text-orange-600 text-sm font-semibold">Learn More →</span>
+                </div>
+            </div>
+
+            <!-- Sector 6: Sports and Leisure -->
+            <div class="sector-card group bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="sector-icon w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-futbol text-2xl text-orange-600 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800 mb-2">Sports and Leisure</h3>
+                <p class="text-slate-500 text-sm">Stadiums, gyms, leisure centres, and entertainment venues</p>
+                <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span class="text-orange-600 text-sm font-semibold">Learn More →</span>
+                </div>
+            </div>
+
+            <!-- Sector 7: Healthcare -->
+            <div class="sector-card group bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="sector-icon w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-hospital-user text-2xl text-orange-600 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800 mb-2">Healthcare</h3>
+                <p class="text-slate-500 text-sm">Hospitals, clinics, care homes, and medical facilities</p>
+                <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span class="text-orange-600 text-sm font-semibold">Learn More →</span>
+                </div>
+            </div>
+
+            <!-- Sector 8: Social Housing -->
+            <div class="sector-card group bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="sector-icon w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-600 transition-all duration-300">
+                    <i class="fa-solid fa-house-chimney-user text-2xl text-orange-600 group-hover:text-white transition-all duration-300"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800 mb-2">Social Housing</h3>
+                <p class="text-slate-500 text-sm">Residential estates, apartment complexes, and housing associations</p>
+                <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span class="text-orange-600 text-sm font-semibold">Learn More →</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Sectors Button -->
+        <div class="text-center mt-12">
+            <button onclick="showAllSectors()" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-orange-600 text-white px-8 py-3 rounded-2xl font-semibold transition-all duration-300">
+                View All Sectors <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Sector Card Styles */
+    .sector-card {
+        transform: translateY(0);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .sector-card:hover {
+        transform: translateY(-8px);
+    }
+    
+    /* Icon animation on hover */
+    .sector-card:hover .sector-icon i {
+        transform: scale(1.1);
+    }
+    
+    /* Optional: Add shimmer effect on hover */
+    .sector-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+        border-radius: 1rem;
+    }
+    
+    .sector-card:hover::before {
+        left: 100%;
+    }
+    
+    /* Make cards relative for pseudo-element */
+    .sector-card {
+        position: relative;
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    // Optional: Show alert when clicking on sector card
+    function showAllSectors() {
+        Swal.fire({
+            title: 'All Security Sectors',
+            html: `
+                <div style="text-align: left;">
+                    <p><strong>✓ Government</strong> - Public buildings, councils, embassies</p>
+                    <p><strong>✓ Education</strong> - Schools, universities, colleges</p>
+                    <p><strong>✓ Information Technology</strong> - Data centres, tech parks</p>
+                    <p><strong>✓ Retail</strong> - Shopping centres, stores, supermarkets</p>
+                    <p><strong>✓ Corporate</strong> - Offices, business parks</p>
+                    <p><strong>✓ Sports and Leisure</strong> - Stadiums, gyms, venues</p>
+                    <p><strong>✓ Healthcare</strong> - Hospitals, clinics, care homes</p>
+                    <p><strong>✓ Social Housing</strong> - Residential estates, apartments</p>
+                </div>
+                <br>
+                <p>Contact us for a tailored security solution for your sector!</p>
+            `,
+            icon: 'info',
+            confirmButtonColor: '#f97316',
+            confirmButtonText: 'Contact Us'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+    
+    // Make each sector card clickable to show details
+    document.querySelectorAll('.sector-card').forEach((card, index) => {
+        card.addEventListener('click', () => {
+            const sectorName = card.querySelector('h3').innerText;
+            Swal.fire({
+                title: sectorName,
+                html: getSectorDetails(sectorName),
+                icon: 'info',
+                confirmButtonColor: '#f97316',
+                confirmButtonText: 'Get Quote',
+                showCancelButton: true,
+                cancelButtonText: 'Close'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    });
+    
+    function getSectorDetails(sector) {
+        const details = {
+            'Government': 'We provide comprehensive security for government buildings, local councils, embassies, and public institutions. Our officers are SC cleared and trained for high-security environments.',
+            'Education': 'Campus security, access control, visitor management, and emergency response for schools, universities, and educational institutions.',
+            'Information Technology': '24/7 monitoring of data centres, server rooms, and tech facilities. Strict access control and surveillance systems.',
+            'Retail': 'Loss prevention, crowd management, CCTV monitoring, and security for shopping centres, retail stores, and supermarkets.',
+            'Corporate': 'Professional reception security, access control, patrol services, and emergency response for office buildings and corporate parks.',
+            'Sports and Leisure': 'Event security, crowd control, ticket verification, and emergency medical response for stadiums and leisure venues.',
+            'Healthcare': 'Patient and staff safety, controlled access, CCTV surveillance, and emergency response for medical facilities.',
+            'Social Housing': 'Residential security, tenant safety, anti-social behaviour management, and patrol services for housing estates.'
+        };
+        return details[sector] || 'Contact us for specialized security solutions tailored to your sector.';
+    }
+</script>
+<div class="whatsapp-widget">
+    <div class="whatsapp-trigger">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+    
+    <div class="whatsapp-card">
+        <div class="whatsapp-header">
+            <i class="fab fa-whatsapp"></i>
+            <div>
+                <h4>West London Security</h4>
+                <p>Online • Usually replies in 2 mins</p>
+            </div>
+        </div>
+        <div class="whatsapp-body">
+            <div class="whatsapp-message">
+                👋 Hello! Need security assistance? Click below to chat with us.
+            </div>
+            <div class="whatsapp-options">
+                <a href="https://wa.me/442081234567?text=Hi%20West%20London%20Security%2C%20I%27m%20interested%20in%20your%20security%20services.%20Can%20you%20send%20me%20more%20information%3F" 
+                   class="whatsapp-btn" target="_blank">
+                    <i class="fas fa-building"></i>
+                    <span>Get Business Quote</span>
+                </a>
+                <a href="https://wa.me/442081234567?text=Hi%2C%20I%20need%20immediate%20security%20assistance.%20Please%20call%20me%20back%20urgently." 
+                   class="whatsapp-btn" target="_blank">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Emergency Request</span>
+                </a>
+                <a href="https://wa.me/442081234567?text=Hi%2C%20I%20saw%20your%20website%20and%20want%20to%20schedule%20a%20free%20security%20audit." 
+                   class="whatsapp-btn" target="_blank">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Schedule Audit</span>
+                </a>
+            </div>
+            <div class="close-card">
+                Click any option to start chat
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- CONTACT -->
+    <!-- CONTACT SECTION - FIXED (No duplicate submissions) -->
+<section id="contact" class="py-24 bg-slate-900 text-white scroll-margin">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16">
+        <div>
+            <h2 class="text-5xl font-bold mb-6" data-aos="zoom-in">Secure Your Business Today</h2>
+            <p class="text-slate-300 text-lg mb-10" data-aos="zoom-in">Our experts design bespoke security strategies. Request a free site assessment.</p>
+            <div class="space-y-7">
+                <div data-aos="zoom-in" class="flex gap-5"><i class="fa-solid fa-location-dot text-3xl text-orange-500"></i><div><p class="font-medium">160 Waye Avenue, Hounslow</p><p class="text-slate-400">TW5 9SF, West London</p></div></div>
+                <div data-aos="zoom-in" class="flex gap-5"><i class="fa-solid fa-phone text-3xl text-orange-500"></i><a href="tel:02081234567" class="hover:text-orange-400">020 8123 4567</a></div>
+                <div data-aos="zoom-in" class="flex gap-5"><i class="fa-solid fa-envelope text-3xl text-orange-500"></i><a href="mailto:info@westlondonsecurity.co.uk" class="hover:text-orange-400">info@westlondonsecurity.co.uk</a></div>
+            </div>
+            <div class="mt-12 border-t border-slate-700 pt-6"><p class="text-xs">West London Security Ltd | Company #15415447 | Incorporated 2024</p></div>
+        </div>
+        
+        <!-- FORM - REMOVED inline onsubmit to prevent double submission -->
+        <form id="contact-form" class="bg-white/5 backdrop-blur-md p-9 rounded-3xl border border-white/10">
+            <input type="hidden" name="request_type" value="contact" id="request_type">
+            <div class="grid grid-cols-2 gap-5">
+                <div><input type="text" id="name" name="name" placeholder="Full name" required class="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-4"></div>
+                <div><input type="text" id="business" name="business" placeholder="Business name" class="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-4"></div>
+            </div>
+            <div class="mt-5"><input type="email" id="email" name="email" placeholder="Email address" required class="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-4"></div>
+            <div class="mt-5"><input type="tel" id="phone" name="phone" placeholder="Phone number" required class="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-4"></div>
+            <div class="mt-5"><textarea id="message" name="message" rows="4" placeholder="Security requirements..." required class="w-full bg-white/10 border border-white/20 rounded-2xl px-5 py-4"></textarea></div>
+            <button type="submit" id="submitBtn" class="mt-7 w-full bg-orange-600 hover:bg-orange-700 py-5 text-lg font-bold rounded-2xl transition">Submit Enquiry <i class="fa-solid fa-lock"></i></button>
+        </form>
+    </div>
+</section>
+    <!-- ENHANCED FOOTER with more content -->
+    <footer class="bg-black text-slate-400 py-16">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
+            <div><div class="flex gap-2 items-center"><div class="w-9 h-9 bg-orange-600 rounded-xl flex items-center justify-center"><i class="fa-solid fa-shield-halved"></i></div><span class="text-white font-bold text-lg">West London Security</span></div><p class="text-sm mt-4">SIA approved, licensed security provider covering West London with elite K9 and manned guarding solutions.</p><div class="flex gap-4 mt-6"><a href="#" class="hover:text-orange-500 text-xl"><i class="fa-brands fa-linkedin"></i></a><a href="#" class="hover:text-orange-500 text-xl"><i class="fa-brands fa-x-twitter"></i></a><a href="#" class="hover:text-orange-500 text-xl"><i class="fa-brands fa-instagram"></i></a></div></div>
+            <div><h4 class="text-white font-semibold mb-5">Quick Links</h4><div class="space-y-2 text-sm"><a href="#home" class="block hover:text-white transition">Home</a><a href="#services" class="block hover:text-white transition">All Services</a><a href="#about" class="block hover:text-white transition">Our Company</a><a href="#testimonials" class="block hover:text-white transition">Testimonials</a><a href="#contact" class="block hover:text-white transition">Contact & Quotes</a></div></div>
+            <div><h4 class="text-white font-semibold mb-5">Legal & Compliance</h4><div class="space-y-2 text-sm"><a href="#" class="block hover:text-white">SIA License Verification</a><a href="#" class="block hover:text-white">Privacy Policy</a><a href="#" class="block hover:text-white">Cookie Policy</a><a href="#" class="block hover:text-white">Modern Slavery Statement</a></div></div>
+            <div><h4 class="text-white font-semibold mb-5">Office Hours</h4><p class="text-sm">24/7 Command Centre<br>Emergency response: 24 hours<br>Sales & consulting: Mon-Fri 9am-6pm</p><p class="mt-4 text-sm"><i class="fa-regular fa-building mr-2"></i> 160 Waye Avenue, Hounslow, TW5 9SF</p><p class="mt-2"><i class="fa-regular fa-envelope mr-2"></i> compliance@westlondonsecurity.co.uk</p></div>
+        </div>
+        <div class="border-t border-slate-800 mt-14 pt-8 text-center text-xs">© 2026 West London Security Ltd. Company Reg: 15415447. All rights reserved. Protecting West London with integrity.</div>
+    </footer>
+
+   <script>
+    // Preloader fade out
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+            preloader.style.visibility = 'hidden';
+            preloader.style.display = 'none';
+        }, 600);
+    });
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('hamburger-icon');
+        if (menu.classList.contains('open')) {
+            menu.classList.remove('open');
+            icon.classList.replace('fa-xmark', 'fa-bars');
+        } else {
+            menu.classList.add('open');
+            icon.classList.replace('fa-bars', 'fa-xmark');
+        }
+    }
+    
+    function closeMobileMenuSmooth() { 
+        const menu = document.getElementById('mobile-menu'); 
+        if(menu.classList.contains('open')) toggleMobileMenu(); 
+    }
+    
+    function closeMobileMenuAndScroll(targetId) {
+        closeMobileMenuSmooth();
+        const el = document.getElementById(targetId);
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    function toggleMobileServicesSubmenu() {
+        const sub = document.getElementById('mobileServicesSub');
+        const arrow = document.getElementById('mobileServicesArrow');
+        sub.classList.toggle('open-sub');
+        arrow.classList.toggle('open');
+    }
+    
+    // Testimonials array (5)
+    const testimonials = [
+        { name: "Michael Thompson", business: "Thames Logistics", text: "K9 unit response is unmatched. Our site theft dropped by 90%. Highly recommend West London Security.", rating: 5 },
+        { name: "Sarah Patel", business: "Westfield Retail", text: "Professional guards and excellent management. They truly understand retail security.", rating: 5 },
+        { name: "David Okonjo", business: "Hounslow Construction", text: "Mobile patrols arrive within minutes. Reliable and diligent team.", rating: 5 },
+        { name: "Eleanor Rigby", business: "Kew Gardens Events", text: "Event security was seamless. Crowd control + canine patrol impressed our visitors.", rating: 5 },
+        { name: "James Whitmore", business: "Chiswick Business Park", text: "24/7 static guarding with daily reports. Top-tier professionalism.", rating: 5 }
+    ];
+    
+    function renderTestimonials() {
+        const container = document.getElementById('slides');
+        if(!container) return;
+        container.innerHTML = '';
+        testimonials.forEach(t => {
+            const div = document.createElement('div');
+            div.className = 'min-w-full px-4';
+            div.innerHTML = `<div class="bg-white text-slate-800 p-10 rounded-3xl shadow-2xl max-w-2xl mx-auto"><div class="flex text-amber-400 mb-5">${'<i class="fa-solid fa-star"></i>'.repeat(t.rating)}</div><p class="text-xl italic mb-6">“${t.text}”</p><div class="flex items-center gap-4"><div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-700 font-bold">${t.name.charAt(0)}</div><div><p class="font-bold">${t.name}</p><p class="text-sm text-slate-500">${t.business}</p></div></div></div>`;
+            container.appendChild(div);
+        });
+    }
+    
+    let currentSlide = 0;
+    function showSlide(n) { 
+        const slides = document.getElementById('slides');
+        if(slides) slides.style.transform = `translateX(-${n * 100}%)`; 
+    }
+    function nextSlide() { currentSlide = (currentSlide + 1) % testimonials.length; showSlide(currentSlide); }
+    function prevSlide() { currentSlide = (currentSlide - 1 + testimonials.length) % testimonials.length; showSlide(currentSlide); }
+    
+    // FLAG to prevent double submission
+    let isSubmitting = false;
+    
+    // NEW: Form submission with 2-second delay
+    async function handleFormSubmit(event, type) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        // Prevent double submission
+        if (isSubmitting) {
+            console.log('Already submitting, please wait...');
+            return false;
+        }
+        
+        const form = event.target;
+        const formData = new FormData(form);
+        formData.append('request_type', type);
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const originalText = submitBtn.innerHTML;
+        
+        // Disable button and set flag
+        isSubmitting = true;
+        submitBtn.disabled = true;
+        
+        // Show loading state with spinner and 2-second countdown
+        let seconds = 2;
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing (${seconds}s)...`;
+        
+        // Countdown timer
+        const countdownInterval = setInterval(() => {
+            seconds--;
+            if (seconds > 0) {
+                submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing (${seconds}s)...`;
+            }
+        }, 1000);
+        
+        // Wait 2 seconds before sending
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Clear countdown interval
+        clearInterval(countdownInterval);
+        
+        // Update button text for actual sending
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Sending request...';
+        
+        try {
+            const response = await fetch('send_email.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: result.message,
+                    icon: 'success',
+                    confirmButtonColor: '#f97316',
+                    confirmButtonText: 'OK',
+                    timer: 3000,
+                    showConfirmButton: true
+                });
+                form.reset();
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: result.message || 'Something went wrong. Please call us directly.',
+                    icon: 'error',
+                    confirmButtonColor: '#f97316'
+                });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Connection Error',
+                text: 'Unable to send message. Please call us at 020 8123 4567.',
+                icon: 'error',
+                confirmButtonColor: '#f97316'
+            });
+        } finally {
+            // Re-enable button and reset flag
+            isSubmitting = false;
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+        
+        return false;
+    }
+    
+    // Audit modal with AJAX submission and 2-second delay
+    let isAuditSubmitting = false;
+    
+    function showAuditModal() {
+        Swal.fire({
+            title: '<strong>Free Security Assessment</strong>',
+            html: `
+                <div class="text-left">
+                    <input type="text" id="auditName" class="swal2-input w-full p-3 border rounded-xl mb-3" placeholder="Full Name *" style="width:100%">
+                    <input type="text" id="auditBusiness" class="swal2-input w-full p-3 border rounded-xl mb-3" placeholder="Business Name" style="width:100%">
+                    <input type="email" id="auditEmail" class="swal2-input w-full p-3 border rounded-xl mb-3" placeholder="Email Address *" style="width:100%">
+                    <input type="tel" id="auditPhone" class="swal2-input w-full p-3 border rounded-xl mb-3" placeholder="Phone Number *" style="width:100%">
+                    <textarea id="auditMessage" class="swal2-textarea w-full p-3 border rounded-xl" placeholder="Tell us about your security needs..." rows="3" style="width:100%"></textarea>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Submit Request',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#f97316',
+            preConfirm: async () => {
+                if (isAuditSubmitting) {
+                    Swal.showValidationMessage('Please wait, already submitting...');
+                    return false;
+                }
+                
+                const name = document.getElementById('auditName')?.value;
+                const email = document.getElementById('auditEmail')?.value;
+                const phone = document.getElementById('auditPhone')?.value;
+                
+                if (!name || !email || !phone) {
+                    Swal.showValidationMessage('Please fill in all required fields (Name, Email, Phone)');
+                    return false;
+                }
+                
+                isAuditSubmitting = true;
+                
+                // Show loading in SweetAlert
+                Swal.showLoading();
+                
+                // Wait 2 seconds before sending
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('business', document.getElementById('auditBusiness')?.value || '');
+                formData.append('email', email);
+                formData.append('phone', phone);
+                formData.append('message', document.getElementById('auditMessage')?.value || 'Security audit request');
+                formData.append('request_type', 'audit');
+                
+                try {
+                    const response = await fetch('send_email.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+                    isAuditSubmitting = false;
+                    
+                    if (!result.success) {
+                        Swal.showValidationMessage(result.message);
+                        return false;
+                    }
+                    return result;
+                } catch (error) {
+                    isAuditSubmitting = false;
+                    Swal.showValidationMessage('Network error. Please try again.');
+                    return false;
+                }
+            }
+        }).then((result) => {
+            if (result.isConfirmed && result.value?.success) {
+                Swal.fire({
+                    title: 'Request Sent!',
+                    text: result.value.message || 'A security specialist will contact you within 2 hours.',
+                    icon: 'success',
+                    confirmButtonColor: '#f97316',
+                    timer: 3000
+                });
+            }
+        });
+    }
+    
+    // Counter animation
+    function animateCounters() {
+        const counters = document.querySelectorAll('.counter-up');
+        counters.forEach(counter => {
+            const updateCounter = () => { 
+                const target = parseInt(counter.getAttribute('data-target')); 
+                let current = 0; 
+                const inc = target / 40; 
+                const timer = setInterval(() => { 
+                    current += inc; 
+                    if(current >= target) { 
+                        counter.innerText = target + '+'; 
+                        clearInterval(timer); 
+                    } else counter.innerText = Math.floor(current) + '+'; 
+                }, 25); 
+            };
+            const observer = new IntersectionObserver((entries) => { 
+                entries.forEach(entry => { 
+                    if(entry.isIntersecting) { 
+                        updateCounter(); 
+                        observer.unobserve(counter); 
+                    } 
+                }); 
+            }, { threshold: 0.5 });
+            observer.observe(counter);
+        });
+    }
+    
+    // Handle dropdown clicks
+    document.querySelectorAll('.dropdown-item, #mobileServicesSub a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const hash = this.getAttribute('href');
+            if(hash && hash.startsWith('#')) {
+                e.preventDefault();
+                const targetId = hash.substring(1);
+                const element = document.getElementById(targetId);
+                if(element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if(document.getElementById('mobile-menu')?.classList.contains('open')) closeMobileMenuSmooth();
+            }
+        });
+    });
+    
+    // Initialize on window load
+    window.onload = () => {
+        renderTestimonials();
+        showSlide(0);
+        setInterval(() => nextSlide(), 6000);
+        animateCounters();
+        
+        // SINGLE event listener for the form - IMPORTANT!
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            // Remove any existing listeners first
+            const newForm = contactForm.cloneNode(true);
+            contactForm.parentNode.replaceChild(newForm, contactForm);
+            
+            // Add fresh event listener
+            newForm.addEventListener('submit', (e) => handleFormSubmit(e, 'contact'));
+        }
+        
+        document.addEventListener('keydown', (e) => { 
+            if(e.key === 'Escape') { 
+                const menu = document.getElementById('mobile-menu'); 
+                if(menu.classList.contains('open')) toggleMobileMenu(); 
+            } 
+        });
+    };
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+</body>
+</html>

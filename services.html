@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Our Services - West London Security Ltd</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        .service-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+        
+        .nav-link {
+            transition: all 0.25s ease;
+        }
+        
+        .nav-link:hover {
+            color: #f97316;
+        }
+        
+        .services-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 260px;
+            background: #1e293b;
+            backdrop-filter: blur(8px);
+            border-radius: 1.5rem;
+            padding: 0.75rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-12px);
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.35);
+            z-index: 60;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+        }
+        
+        .group:hover .services-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #e2e8f0;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background: #f97316;
+            color: white;
+            padding-left: 1.8rem;
+        }
+        
+        .mobile-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.33, 1, 0.68, 1);
+            background: rgba(255,255,255,0.03);
+            border-radius: 1.2rem;
+        }
+        
+        .mobile-submenu.open-sub { max-height: 500px; }
+        .rotate-chevron { transition: transform 0.3s ease; }
+        .rotate-chevron.open { transform: rotate(180deg); }
+        
+        .slide-menu {
+            transform: translateX(-100%);
+            transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .slide-menu.open { transform: translateX(0); }
+        
+        @media (max-width: 768px) {
+            .service-card {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+<!-- Header -->
+<header class="bg-slate-900 text-white sticky top-0 z-50 shadow-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2 sm:gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shadow-md overflow-hidden bg-orange-600">
+                <i class="fa-solid fa-shield-halved text-white text-xl"></i>
+            </div>
+            <div>
+                <span class="text-lg sm:text-2xl font-extrabold tracking-tight">West London</span>
+                <span class="block text-[9px] sm:text-[11px] text-orange-400 -mt-1 tracking-wider">SECURITY LTD</span>
+            </div>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-5 lg:gap-7 text-sm font-semibold">
+            <a href="index.html" class="nav-link">Home</a>
+            <div class="relative group">
+                <a href="#" class="nav-link flex items-center gap-1">Services <i class="fa-solid fa-chevron-down text-xs"></i></a>
+                <div class="services-dropdown">
+                    <a href="#security" class="dropdown-item"><i class="fa-solid fa-shield-halved mr-2"></i> Security</a>
+                    <a href="#facilities" class="dropdown-item"><i class="fa-solid fa-building mr-2"></i> Facilities Management</a>
+                    <a href="#maintenance" class="dropdown-item"><i class="fa-solid fa-wrench mr-2"></i> Maintenance</a>
+                    <a href="#recruitment" class="dropdown-item"><i class="fa-solid fa-users mr-2"></i> Recruitment</a>
+                    <a href="#locations" class="dropdown-item"><i class="fa-solid fa-location-dot mr-2"></i> Locations</a>
+                </div>
+            </div>
+            <a href="index.html#about" class="nav-link">About Us</a>
+            <a href="index.html#testimonials" class="nav-link">Testimonials</a>
+            <a href="index.html#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="flex items-center gap-2 sm:gap-4">
+            <a href="tel:02081234567" class="hidden sm:flex items-center gap-2 bg-slate-800 hover:bg-orange-700 px-4 sm:px-5 py-2 rounded-2xl text-sm font-semibold transition-all duration-300">
+                <i class="fa-solid fa-phone-volume"></i> <span>020 8123 4567</span>
+            </a>
+            <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 flex items-center justify-center text-2xl">
+                <i id="hamburger-icon" class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="slide-menu fixed top-0 left-0 h-full w-80 bg-slate-900 shadow-2xl z-[100] pt-20 px-6 overflow-y-auto">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-3xl text-white hover:text-orange-400">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="flex flex-col gap-5 text-lg font-medium">
+            <a href="index.html" onclick="closeMobileMenuSmooth()" class="nav-link py-2 hover:bg-slate-800 px-3 rounded-xl transition">Home</a>
+            <div class="flex flex-col">
+                <button onclick="toggleMobileServicesSubmenu()" class="flex justify-between items-center w-full text-left nav-link py-2 hover:bg-slate-800 px-3 rounded-xl transition">
+                    Services <i id="mobileServicesArrow" class="fa-solid fa-chevron-down rotate-chevron transition-all"></i>
+                </button>
+                <div id="mobileServicesSub" class="mobile-submenu mt-2 pl-6 flex flex-col gap-2">
+                    <a href="#security" onclick="closeMobileMenuAndScroll('security')" class="text-slate-300 hover:text-orange-400 py-2 transition flex items-center gap-2"><i class="fa-solid fa-shield-halved w-5"></i> Security</a>
+                    <a href="#facilities" onclick="closeMobileMenuAndScroll('facilities')" class="text-slate-300 hover:text-orange-400 py-2 transition flex items-center gap-2"><i class="fa-solid fa-building w-5"></i> Facilities Management</a>
+                    <a href="#maintenance" onclick="closeMobileMenuAndScroll('maintenance')" class="text-slate-300 hover:text-orange-400 py-2 transition flex items-center gap-2"><i class="fa-solid fa-wrench w-5"></i> Maintenance</a>
+                    <a href="#cleaning" onclick="closeMobileMenuAndScroll('cleaning')" class="text-slate-300 hover:text-orange-400 py-2 transition flex items-center gap-2"><i class="fa-solid fa-broom w-5"></i> Cleaning</a>
+                    <a href="#recruitment" onclick="closeMobileMenuAndScroll('recruitment')" class="text-slate-300 hover:text-orange-400 py-2 transition flex items-center gap-2"><i class="fa-solid fa-users w-5"></i> Recruitment</a>
+                    <a href="#electrical" onclick="closeMobileMenuAndScroll('electrical')" class="text-slate-300 hover:text-orange-400 py-2 transition flex items-center gap-2"><i class="fa-solid fa-bolt w-5"></i> Mechanical & Electrical</a>
+                </div>
+            </div>
+            <a href="index.html#about" onclick="closeMobileMenuSmooth()" class="nav-link py-2 hover:bg-slate-800 px-3 rounded-xl transition">About Us</a>
+            <a href="index.html#testimonials" onclick="closeMobileMenuSmooth()" class="nav-link py-2 hover:bg-slate-800 px-3 rounded-xl transition">Testimonials</a>
+            <a href="index.html#contact" onclick="closeMobileMenuSmooth()" class="nav-link py-2 hover:bg-slate-800 px-3 rounded-xl transition">Contact</a>
+        </div>
+        <div class="pt-6 mt-6 border-t border-slate-700">
+            <a href="tel:02081234567" class="flex items-center gap-3 text-orange-400 font-semibold py-3 hover:bg-slate-800 px-3 rounded-xl transition">
+                <i class="fa-solid fa-phone"></i> 020 8123 4567
+            </a>
+            <p class="text-xs text-slate-400 mt-4 px-3">160 Waye Avenue, Hounslow TW5 9SF</p>
+        </div>
+    </div>
+</header>
+
+<!-- Page Header -->
+<section class="category-header text-white py-16">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Comprehensive Services</h1>
+        <p class="text-xl text-slate-300 max-w-3xl mx-auto">Providing complete security, facilities management, and maintenance solutions across the UK</p>
+    </div>
+</section>
+
+<!-- Quick Navigation Tabs -->
+<div class="sticky top-16 bg-white shadow-md z-40 overflow-x-auto">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex space-x-1 py-3 min-w-max">
+            <a href="#security" class="quick-nav px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-orange-600 hover:text-white transition"> Security</a>
+            <a href="#facilities" class="quick-nav px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-orange-600 hover:text-white transition">Facilities Management</a>
+            <a href="#cleaning" class="quick-nav px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-orange-600 hover:text-white transition">Cleaning</a>
+            <a href="#horticulture" class="quick-nav px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-orange-600 hover:text-white transition">Grounds Maintenance</a>
+            <a href="#recruitment" class="quick-nav px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-orange-600 hover:text-white transition">Recruitment</a>
+            <a href="#maintenance" class="quick-nav px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-orange-600 hover:text-white transition">Maintenance</a>
+            <a href="#mechanical" class="quick-nav px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-orange-600 hover:text-white transition">Mechanical & Electrical</a>
+            <a href="#demolition" class="quick-nav px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-orange-600 hover:text-white transition">Demolition</a>
+            <a href="#locations" class="quick-nav px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-orange-600 hover:text-white transition">Locations</a>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECURITY SERVICES SECTION -->
+<!-- ============================================ -->
+<section id="security" class="py-16 bg-white scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-shield-halved text-3xl text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Security Services</h2>
+            <p class="text-slate-500 mt-2">Comprehensive security solutions for businesses and properties</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-user-shield text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Security Guards</h3>
+                <p class="text-sm text-slate-500">SIA licensed security officers for all premises</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-door-open text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Concierge/Reception Duties</h3>
+                <p class="text-sm text-slate-500">Professional front-of-house security staff</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-car text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Mobile Security Patrols</h3>
+                <p class="text-sm text-slate-500">Regular and random vehicle patrols</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-key text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Key Holding</h3>
+                <p class="text-sm text-slate-500">Secure key management and storage</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-bell text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Alarm Response</h3>
+                <p class="text-sm text-slate-500">24/7 rapid alarm response service</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-fence text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Industrial Gates & Barriers</h3>
+                <p class="text-sm text-slate-500">Installation and maintenance of security barriers</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-video text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">CCTV Systems</h3>
+                <p class="text-sm text-slate-500">Design, installation, and maintenance</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-eye text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">CCTV Monitoring</h3>
+                <p class="text-sm text-slate-500">24/7 remote CCTV surveillance</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-tower-cell text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">CCTV Rental Systems</h3>
+                <p class="text-sm text-slate-500">Temporary CCTV solutions for sites</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-bell text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Intruder Alarm Monitoring</h3>
+                <p class="text-sm text-slate-500">24/7 alarm monitoring service</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-fire-extinguisher text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Fire Alarms</h3>
+                <p class="text-sm text-slate-500">Installation and monitoring of fire alarm systems</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-lightbulb text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Security Lighting</h3>
+                <p class="text-sm text-slate-500">LED security lighting installation</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-microchip text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Intruder Alarms</h3>
+                <p class="text-sm text-slate-500">Supply and installation of intruder alarms</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-wrench text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Alarm Maintenance</h3>
+                <p class="text-sm text-slate-500">Regular servicing of all alarm systems</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-store text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Retail Security</h3>
+                <p class="text-sm text-slate-500">Specialist loss prevention for retail</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-id-card text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Access Control</h3>
+                <p class="text-sm text-slate-500">Electronic access control systems</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-hard-hat text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Construction Site Security</h3>
+                <p class="text-sm text-slate-500">Specialist security for construction sites</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-camera text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Site CCTV</h3>
+                <p class="text-sm text-slate-500">Temporary CCTV for construction sites</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-dog text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Security Dogs</h3>
+                <p class="text-sm text-slate-500">K9 security units for high-risk sites</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-solar-panel text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Solar Farm Security</h3>
+                <p class="text-sm text-slate-500">Specialist security for solar farms</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-fire text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Fire Wardens</h3>
+                <p class="text-sm text-slate-500">Trained fire safety officers</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-clock text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Waking Watch</h3>
+                <p class="text-sm text-slate-500">24/7 fire safety patrols</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-bell text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Waking Watch Fire Alarm System</h3>
+                <p class="text-sm text-slate-500">Integrated fire alarm with waking watch</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-microchip text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Hybrid Waking Watch Solutions</h3>
+                <p class="text-sm text-slate-500">Combined technology and personnel</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-house-circle-exclamation text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Vacant Property Security</h3>
+                <p class="text-sm text-slate-500">Security for empty properties</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-camera-retro text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">ANPR Vehicle Barriers</h3>
+                <p class="text-sm text-slate-500">Automatic number plate recognition systems</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-warehouse text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Warehousing Security</h3>
+                <p class="text-sm text-slate-500">Security for warehouses and logistics centers</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- FACILITIES MANAGEMENT SECTION -->
+<!-- ============================================ -->
+<section id="facilities" class="py-16 bg-slate-100 scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-building text-3xl text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Facilities Management</h2>
+            <p class="text-slate-500 mt-2">Complete integrated facilities services</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-chalkboard-user text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Integrated Facilities Services</h3>
+                <p class="text-sm text-slate-500">Complete facilities management solutions</p>
+            </div>
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-wrench text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Plumbing & Sanitation</h3>
+                <p class="text-sm text-slate-500">Full plumbing and sanitation services</p>
+            </div>
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-brush text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Office Cleaning</h3>
+                <p class="text-sm text-slate-500">Professional office cleaning services</p>
+            </div>
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-window-maximize text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Window Cleaning</h3>
+                <p class="text-sm text-slate-500">Professional window cleaning services</p>
+            </div>
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-file-signature text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Contract Cleaning</h3>
+                <p class="text-sm text-slate-500">Tailored cleaning contracts</p>
+            </div>
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-carpet text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Carpet Cleaning</h3>
+                <p class="text-sm text-slate-500">Deep carpet cleaning services</p>
+            </div>
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-building-user text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Property Management Cleaning</h3>
+                <p class="text-sm text-slate-500">Cleaning for managed properties</p>
+            </div>
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-store text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Shopping Centre & Retail Cleaning</h3>
+                <p class="text-sm text-slate-500">Specialist retail cleaning</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- GROUNDS MAINTENANCE SECTION -->
+<!-- ============================================ -->
+<section id="horticulture" class="py-16 bg-white scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-leaf text-3xl text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Horticulture & Grounds Maintenance</h2>
+            <p class="text-slate-500 mt-2">Professional grounds care and landscaping</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-tree text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Horticulture</h3>
+                <p class="text-sm text-slate-500">Professional horticultural services</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-mower text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Grounds Maintenance</h3>
+                <p class="text-sm text-slate-500">Complete grounds care and maintenance</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- RECRUITMENT SECTION -->
+<!-- ============================================ -->
+<section id="recruitment" class="py-16 bg-slate-100 scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-users text-3xl text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Recruitment</h2>
+            <p class="text-slate-500 mt-2">Staffing solutions for all industries</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-user-tie text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Permanent Recruitment</h3>
+                <p class="text-sm text-slate-500">Permanent staffing solutions</p>
+            </div>
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-clock text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Temporary Recruitment</h3>
+                <p class="text-sm text-slate-500">Temporary and contract staffing</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- MAINTENANCE SECTION -->
+<!-- ============================================ -->
+<section id="maintenance" class="py-16 bg-white scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-screwdriver-wrench text-3xl text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Maintenance Services</h2>
+            <p class="text-slate-500 mt-2">Complete property and equipment maintenance</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-bolt text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Reactive Maintenance</h3>
+                <p class="text-sm text-slate-500">Emergency repair services</p>
+            </div>
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-calendar-week text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Planned Maintenance</h3>
+                <p class="text-sm text-slate-500">Scheduled preventative maintenance</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- MECHANICAL & ELECTRICAL SECTION -->
+<!-- ============================================ -->
+<section id="mechanical" class="py-16 bg-slate-100 scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-gear text-3xl text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Mechanical & Electrical</h2>
+            <p class="text-slate-500 mt-2">Professional M&E services</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-wind text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Air Conditioning</h3>
+                <p class="text-sm text-slate-500">Installation and maintenance of AC systems</p>
+            </div>
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-hard-hat text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Civil Engineering</h3>
+                <p class="text-sm text-slate-500">Civil engineering services</p>
+            </div>
+            <div class="service-card bg-white rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-bolt text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Electrical Services</h3>
+                <p class="text-sm text-slate-500">Complete electrical installation and maintenance</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- DEMOLITION SECTION -->
+<!-- ============================================ -->
+<section id="demolition" class="py-16 bg-white scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-building-circle-exclamation text-3xl text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Demolition</h2>
+            <p class="text-slate-500 mt-2">Safe and controlled demolition services</p>
+        </div>
+        
+        <div class="grid grid-cols-1 gap-5">
+            <div class="service-card bg-slate-50 rounded-xl p-5 border border-slate-200 hover:border-orange-300">
+                <i class="fa-solid fa-building-circle-exclamation text-3xl text-orange-600 mb-3"></i>
+                <h3 class="font-bold text-slate-800 mb-2">Demolition</h3>
+                <p class="text-sm text-slate-500">Full demolition services for commercial and industrial properties</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- LOCATIONS SECTION -->
+<!-- ============================================ -->
+<section id="locations" class="py-16 bg-slate-100 scroll-margin">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-map-location-dot text-3xl text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Our Locations</h2>
+            <p class="text-slate-500 mt-2">Nationwide coverage across the UK</p>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div class="location-card bg-white rounded-xl p-4 text-center hover:shadow-lg transition hover:border-orange-300 border border-slate-200">
+                <i class="fa-solid fa-location-dot text-orange-600 text-xl mb-2"></i>
+                <h3 class="font-bold text-slate-800">London</h3>
+                <p class="text-xs text-slate-500">Headquarters</p>
+            </div>
+            <div class="location-card bg-white rounded-xl p-4 text-center hover:shadow-lg transition hover:border-orange-300 border border-slate-200">
+                <i class="fa-solid fa-location-dot text-orange-600 text-xl mb-2"></i>
+                <h3 class="font-bold text-slate-800">Manchester</h3>
+                <p class="text-xs text-slate-500">North West</p>
+            </div>
+            <div class="location-card bg-white rounded-xl p-4 text-center hover:shadow-lg transition hover:border-orange-300 border border-slate-200">
+                <i class="fa-solid fa-location-dot text-orange-600 text-xl mb-2"></i>
+                <h3 class="font-bold text-slate-800">Leeds</h3>
+                <p class="text-xs text-slate-500">Yorkshire</p>
+            </div>
+            <div class="location-card bg-white rounded-xl p-4 text-center hover:shadow-lg transition hover:border-orange-300 border border-slate-200">
+                <i class="fa-solid fa-location-dot text-orange-600 text-xl mb-2"></i>
+                <h3 class="font-bold text-slate-800">Newcastle</h3>
+                <p class="text-xs text-slate-500">North East</p>
+            </div>
+            <div class="location-card bg-white rounded-xl p-4 text-center hover:shadow-lg transition hover:border-orange-300 border border-slate-200">
+                <i class="fa-solid fa-location-dot text-orange-600 text-xl mb-2"></i>
+                <h3 class="font-bold text-slate-800">Hull</h3>
+                <p class="text-xs text-slate-500">East Yorkshire</p>
+            </div>
+            <div class="location-card bg-white rounded-xl p-4 text-center hover:shadow-lg transition hover:border-orange-300 border border-slate-200">
+                <i class="fa-solid fa-location-dot text-orange-600 text-xl mb-2"></i>
+                <h3 class="font-bold text-slate-800">Scotland</h3>
+                <p class="text-xs text-slate-500">Glasgow & Edinburgh</p>
+            </div>
+            <div class="location-card bg-white rounded-xl p-4 text-center hover:shadow-lg transition hover:border-orange-300 border border-slate-200">
+                <i class="fa-solid fa-location-dot text-orange-600 text-xl mb-2"></i>
+                <h3 class="font-bold text-slate-800">Sheffield</h3>
+                <p class="text-xs text-slate-500">South Yorkshire</p>
+            </div>
+            <div class="location-card bg-white rounded-xl p-4 text-center hover:shadow-lg transition hover:border-orange-300 border border-slate-200">
+                <i class="fa-solid fa-location-dot text-orange-600 text-xl mb-2"></i>
+                <h3 class="font-bold text-slate-800">Birmingham</h3>
+                <p class="text-xs text-slate-500">West Midlands</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-slate-400 py-12">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <p class="text-sm">West London Security Ltd | Company No: 15415447</p>
+        <p class="text-xs mt-2">160 Waye Avenue, Hounslow, TW5 9SF | 020 8123 4567</p>
+        <div class="mt-4 pt-4 border-t border-slate-800 text-xs">
+            © 2026 West London Security Ltd. All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('hamburger-icon');
+        if (menu.classList.contains('open')) {
+            menu.classList.remove('open');
+            icon.classList.replace('fa-xmark', 'fa-bars');
+        } else {
+            menu.classList.add('open');
+            icon.classList.replace('fa-bars', 'fa-xmark');
+        }
+    }
+    
+    function closeMobileMenuSmooth() { 
+        const menu = document.getElementById('mobile-menu'); 
+        if(menu.classList.contains('open')) toggleMobileMenu(); 
+    }
+    
+    function closeMobileMenuAndScroll(targetId) {
+        closeMobileMenuSmooth();
+        const el = document.getElementById(targetId);
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    function toggleMobileServicesSubmenu() {
+        const sub = document.getElementById('mobileServicesSub');
+        const arrow = document.getElementById('mobileServicesArrow');
+        sub.classList.toggle('open-sub');
+        arrow.classList.toggle('open');
+    }
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && href !== '#security' && href !== '#facilities' && href !== '#cleaning' && href !== '#horticulture' && href !== '#recruitment' && href !== '#maintenance' && href !== '#mechanical' && href !== '#demolition' && href !== '#locations') {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
+    
+    // Highlight active nav on scroll
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.quick-nav');
+        
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('bg-orange-600', 'text-white');
+            link.classList.add('bg-slate-100', 'text-slate-700');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('bg-orange-600', 'text-white');
+                link.classList.remove('bg-slate-100', 'text-slate-700');
+            }
+        });
+    });
+</script>
+</body>
+</html>
